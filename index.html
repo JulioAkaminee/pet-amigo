@@ -236,19 +236,7 @@
         .mobile-menu.open {
             transform: translateX(0);
         }
-    </style>
-
-    <!-- AOS Visibility Fix -->
-    <style>
-        /* Garante que elementos AOS no viewport inicial fiquem visíveis */
-        [data-aos]:not(.aos-animate) {
-            opacity: 1 !important;
-            transform: none !important;
-            transition: none !important;
-        }
-    </style>
-
-</head>
+    </style></head>
 <body class="bg-pet-cream font-body text-gray-700 overflow-x-hidden">
 
     <!-- Decorative floating blobs -->
@@ -1167,5 +1155,13 @@
                 }
             });
         });
-    </script></body>
+    </script><!-- AOS Fix -->
+<style>
+[data-aos]:not(.aos-animate) {
+    opacity: 1 !important;
+    transform: none !important;
+    transition: none !important;
+}
+</style>
+</body>
 </html>
