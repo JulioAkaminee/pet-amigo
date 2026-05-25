@@ -1,0 +1,1161 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pet Amigo — Pet Shop & Veterinária em Bragança Paulista</title>
+    <meta name="description" content="Pet Amigo: banho, tosa, veterinária 24h, hotel e produtos para seu pet em Bragança Paulista. Cuidamos do seu melhor amigo com amor e profissionalismo.">
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@400;600;700;800&family=Comic+Neue:wght@400;700&display=swap" rel="stylesheet">
+
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        'pet-orange': '#F97316',
+                        'pet-orange-light': '#FB923C',
+                        'pet-orange-dark': '#EA580C',
+                        'pet-blue': '#2563EB',
+                        'pet-blue-light': '#3B82F6',
+                        'pet-blue-dark': '#1D4ED8',
+                        'pet-cream': '#FFF7ED',
+                        'pet-cream-dark': '#FED7AA',
+                    },
+                    fontFamily: {
+                        'display': ['"Baloo 2"', 'cursive'],
+                        'body': ['"Comic Neue"', 'cursive'],
+                    },
+                }
+            }
+        }
+    </script>
+
+    <!-- AOS Animate On Scroll -->
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+
+    <!-- Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+
+    <style>
+        /* Custom Claymorphism Styles */
+        .clay-card {
+            border-radius: 2rem;
+            border: 4px solid rgba(255,255,255,0.6);
+            box-shadow:
+                8px 8px 16px rgba(234, 88, 12, 0.15),
+                -8px -8px 16px rgba(255, 255, 255, 0.8),
+                inset 0 0 0 transparent;
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+        .clay-card:hover {
+            transform: translateY(-8px) scale(1.02);
+            box-shadow:
+                12px 12px 24px rgba(234, 88, 12, 0.2),
+                -8px -8px 16px rgba(255, 255, 255, 0.9);
+        }
+
+        .clay-button {
+            border-radius: 9999px;
+            border: 3px solid rgba(255,255,255,0.5);
+            box-shadow:
+                4px 4px 8px rgba(234, 88, 12, 0.2),
+                -4px -4px 8px rgba(255,255,255,0.6);
+            transition: all 0.3s ease;
+        }
+        .clay-button:hover {
+            transform: translateY(-3px);
+            box-shadow:
+                6px 6px 12px rgba(234, 88, 12, 0.3),
+                -4px -4px 8px rgba(255,255,255,0.7);
+        }
+        .clay-button:active {
+            transform: translateY(0);
+            box-shadow: inset 2px 2px 6px rgba(0,0,0,0.15);
+        }
+
+        .clay-input {
+            border-radius: 1.5rem;
+            border: 3px solid rgba(249, 115, 22, 0.2);
+            box-shadow:
+                inset 3px 3px 6px rgba(0,0,0,0.05),
+                inset -3px -3px 6px rgba(255,255,255,0.8);
+            transition: all 0.3s ease;
+        }
+        .clay-input:focus {
+            outline: none;
+            border-color: #F97316;
+            box-shadow:
+                inset 3px 3px 6px rgba(0,0,0,0.05),
+                inset -3px -3px 6px rgba(255,255,255,0.8),
+                0 0 0 4px rgba(249, 115, 22, 0.15);
+        }
+
+        .clay-section {
+            border-radius: 3rem;
+            border: 4px solid rgba(255,255,255,0.5);
+        }
+
+        .blob-shape {
+            border-radius: 60% 40% 30% 70% / 60% 30% 70% 40%;
+        }
+        .blob-shape-2 {
+            border-radius: 30% 70% 70% 30% / 30% 30% 70% 70%;
+        }
+        .blob-shape-3 {
+            border-radius: 50% 50% 20% 80% / 25% 80% 20% 75%;
+        }
+
+        /* Floating animation */
+        @keyframes float {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-15px); }
+        }
+        .animate-float {
+            animation: float 4s ease-in-out infinite;
+        }
+        .animate-float-delay {
+            animation: float 4s ease-in-out 1.5s infinite;
+        }
+        .animate-float-slow {
+            animation: float 6s ease-in-out infinite;
+        }
+
+        /* Paw print decoration */
+        .paw-bg {
+            position: relative;
+        }
+        .paw-bg::before {
+            content: '';
+            position: absolute;
+            width: 60px;
+            height: 60px;
+            background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%23F97316' opacity='0.1'%3E%3Cpath d='M12 10.5c-1.5 0-2.7 1.2-2.7 2.7 0 .5.1 1 .4 1.4.3.4.7.7 1.1.9.4.2.8.3 1.2.3s.8-.1 1.2-.3c.4-.2.8-.5 1.1-.9.3-.4.4-.9.4-1.4 0-1.5-1.2-2.7-2.7-2.7zM7.5 6c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2zm9 0c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2zM5 12c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2zm14 0c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2z'/%3E%3C/svg%3E") no-repeat center;
+            background-size: contain;
+        }
+
+        /* Smooth scroll */
+        html {
+            scroll-behavior: smooth;
+        }
+
+        /* Custom scrollbar */
+        ::-webkit-scrollbar {
+            width: 12px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #FFF7ED;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #F97316;
+            border-radius: 10px;
+            border: 3px solid #FFF7ED;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #EA580C;
+        }
+
+        /* Navigation */
+        .nav-link {
+            position: relative;
+        }
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            bottom: -4px;
+            left: 0;
+            width: 0;
+            height: 3px;
+            background: #F97316;
+            border-radius: 2px;
+            transition: width 0.3s ease;
+        }
+        .nav-link:hover::after {
+            width: 100%;
+        }
+
+        /* Service card icon bg */
+        .service-icon-bg {
+            background: linear-gradient(135deg, #FFF7ED 0%, #FED7AA 100%);
+            border: 3px solid rgba(249, 115, 22, 0.2);
+        }
+
+        /* Gallery hover */
+        .gallery-item {
+            overflow: hidden;
+            border-radius: 1.5rem;
+            border: 4px solid white;
+        }
+        .gallery-item img {
+            transition: transform 0.5s ease;
+        }
+        .gallery-item:hover img {
+            transform: scale(1.1);
+        }
+        .gallery-overlay {
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+        .gallery-item:hover .gallery-overlay {
+            opacity: 1;
+        }
+
+        /* Heart beat animation */
+        @keyframes heartbeat {
+            0%, 100% { transform: scale(1); }
+            14% { transform: scale(1.1); }
+            28% { transform: scale(1); }
+            42% { transform: scale(1.1); }
+            70% { transform: scale(1); }
+        }
+        .animate-heartbeat {
+            animation: heartbeat 1.5s ease-in-out infinite;
+        }
+
+        /* Wiggle animation */
+        @keyframes wiggle {
+            0%, 100% { transform: rotate(0deg); }
+            25% { transform: rotate(-5deg); }
+            75% { transform: rotate(5deg); }
+        }
+        .animate-wiggle:hover {
+            animation: wiggle 0.5s ease-in-out;
+        }
+
+        /* Mobile menu */
+        .mobile-menu {
+            transform: translateX(100%);
+            transition: transform 0.3s ease;
+        }
+        .mobile-menu.open {
+            transform: translateX(0);
+        }
+    </style>
+</head>
+<body class="bg-pet-cream font-body text-gray-700 overflow-x-hidden">
+
+    <!-- Decorative floating blobs -->
+    <div class="fixed inset-0 pointer-events-none overflow-hidden z-0">
+        <div class="absolute -top-20 -left-20 w-80 h-80 bg-pet-orange/10 blob-shape animate-float-slow"></div>
+        <div class="absolute top-1/3 -right-20 w-64 h-64 bg-pet-blue/10 blob-shape-2 animate-float-delay"></div>
+        <div class="absolute bottom-20 -left-10 w-56 h-56 bg-pet-orange/10 blob-shape-3 animate-float"></div>
+    </div>
+
+    <!-- Navigation -->
+    <nav id="navbar" class="fixed top-0 left-0 right-0 z-50 transition-all duration-500">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex items-center justify-between h-20">
+                <!-- Logo -->
+                <a href="#" class="flex items-center gap-3 group" data-aos="fade-right">
+                    <div class="w-12 h-12 bg-pet-orange rounded-full flex items-center justify-center clay-button">
+                        <i data-lucide="paw-print" class="w-6 h-6 text-white"></i>
+                    </div>
+                    <div>
+                        <h1 class="font-display font-bold text-2xl text-gray-800 group-hover:text-pet-orange transition-colors">Pet Amigo</h1>
+                        <p class="text-xs text-gray-500 -mt-1">Pet Shop & Veterinária</p>
+                    </div>
+                </a>
+
+                <!-- Desktop Menu -->
+                <div class="hidden md:flex items-center gap-8" data-aos="fade-left">
+                    <a href="#servicos" class="nav-link font-display font-semibold text-gray-700 hover:text-pet-orange transition-colors">Serviços</a>
+                    <a href="#produtos" class="nav-link font-display font-semibold text-gray-700 hover:text-pet-orange transition-colors">Produtos</a>
+                    <a href="#galeria" class="nav-link font-display font-semibold text-gray-700 hover:text-pet-orange transition-colors">Galeria</a>
+                    <a href="#agendamento" class="clay-button bg-pet-orange text-white font-display font-bold px-6 py-2.5 hover:bg-pet-orange-dark inline-flex items-center gap-2">
+                        <i data-lucide="calendar-check" class="w-4 h-4"></i>
+                        Agendar
+                    </a>
+                </div>
+
+                <!-- Mobile Menu Button -->
+                <button id="mobile-menu-btn" class="md:hidden w-10 h-10 flex items-center justify-center clay-button bg-white">
+                    <i data-lucide="menu" class="w-5 h-5 text-gray-700"></i>
+                </button>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Mobile Menu Overlay -->
+    <div id="mobile-menu" class="mobile-menu fixed inset-0 z-50 bg-pet-cream/95 backdrop-blur-lg flex flex-col items-center justify-center gap-8 md:hidden">
+        <button id="mobile-menu-close" class="absolute top-6 right-6 w-10 h-10 flex items-center justify-center clay-button bg-white">
+            <i data-lucide="x" class="w-5 h-5 text-gray-700"></i>
+        </button>
+        <a href="#servicos" class="mobile-link font-display font-bold text-2xl text-gray-800 hover:text-pet-orange transition-colors">Serviços</a>
+        <a href="#produtos" class="mobile-link font-display font-bold text-2xl text-gray-800 hover:text-pet-orange transition-colors">Produtos</a>
+        <a href="#galeria" class="mobile-link font-display font-bold text-2xl text-gray-800 hover:text-pet-orange transition-colors">Galeria</a>
+        <a href="#agendamento" class="mobile-link font-display font-bold text-2xl text-gray-800 hover:text-pet-orange transition-colors">Agendamento</a>
+    </div>
+
+    <!-- Hero Section -->
+    <section class="relative min-h-screen flex items-center pt-20 overflow-hidden">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full">
+            <div class="grid lg:grid-cols-2 gap-12 items-center">
+                <!-- Hero Content -->
+                <div class="relative z-10" data-aos="fade-right" data-aos-duration="1000">
+                    <div class="inline-flex items-center gap-2 bg-white/80 backdrop-blur-sm clay-card px-4 py-2 mb-6">
+                        <i data-lucide="map-pin" class="w-4 h-4 text-pet-orange"></i>
+                        <span class="font-display font-semibold text-sm text-gray-700">Bragança Paulista, SP</span>
+                    </div>
+
+                    <h1 class="font-display font-extrabold text-5xl sm:text-6xl lg:text-7xl text-gray-800 leading-tight mb-6">
+                        Seu pet merece o
+                        <span class="relative inline-block">
+                            <span class="text-pet-orange">melhor</span>
+                            <svg class="absolute -bottom-2 left-0 w-full" viewBox="0 0 200 12" fill="none">
+                                <path d="M2 8C40 2 80 2 100 8C120 14 160 14 198 8" stroke="#F97316" stroke-width="4" stroke-linecap="round"/>
+                            </svg>
+                        </span>
+                        cuidado!
+                    </h1>
+
+                    <p class="text-lg sm:text-xl text-gray-600 mb-8 leading-relaxed max-w-lg">
+                        No <strong class="text-pet-orange">Pet Amigo</strong>, tratamos seu pet como família. 
+                        Banho, tosa, veterinária 24h, hotelzinho e os melhores produtos para seu melhor amigo.
+                    </p>
+
+                    <div class="flex flex-wrap gap-4">
+                        <a href="#agendamento" class="clay-button bg-pet-orange text-white font-display font-bold text-lg px-8 py-4 hover:bg-pet-orange-dark inline-flex items-center gap-3 animate-wiggle">
+                            <i data-lucide="calendar-check" class="w-5 h-5"></i>
+                            Agendar Agora
+                        </a>
+                        <a href="#servicos" class="clay-button bg-white text-pet-orange font-display font-bold text-lg px-8 py-4 hover:bg-pet-cream border-pet-orange/30 inline-flex items-center gap-3">
+                            <i data-lucide="sparkles" class="w-5 h-5"></i>
+                            Nossos Serviços
+                        </a>
+                    </div>
+
+                    <!-- Stats -->
+                    <div class="flex flex-wrap gap-8 mt-12">
+                        <div data-aos="fade-up" data-aos-delay="100">
+                            <div class="font-display font-bold text-3xl text-pet-orange">+10k</div>
+                            <div class="text-sm text-gray-500 font-display">Pets Atendidos</div>
+                        </div>
+                        <div data-aos="fade-up" data-aos-delay="200">
+                            <div class="font-display font-bold text-3xl text-pet-blue">15+</div>
+                            <div class="text-sm text-gray-500 font-display">Anos de Experiência</div>
+                        </div>
+                        <div data-aos="fade-up" data-aos-delay="300">
+                            <div class="font-display font-bold text-3xl text-pet-orange">24h</div>
+                            <div class="text-sm text-gray-500 font-display">Veterinária</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Hero Image -->
+                <div class="relative" data-aos="fade-left" data-aos-duration="1000">
+                    <!-- Main Image Container -->
+                    <div class="relative">
+                        <div class="clay-card overflow-hidden aspect-square max-w-lg mx-auto">
+                            <img src="https://images.unsplash.com/photo-1450778869180-41d0601e046e?w=800&h=800&fit=crop&crop=center" 
+                                 alt="Cachorro e gato felizes juntos" 
+                                 class="w-full h-full object-cover">
+                        </div>
+
+                        <!-- Floating badges -->
+                        <div class="absolute -top-4 -right-4 sm:right-8 clay-card bg-white p-4 animate-float" data-aos="zoom-in" data-aos-delay="500">
+                            <div class="flex items-center gap-3">
+                                <div class="w-10 h-10 bg-green-100 rounded-full flex items-center justify-center">
+                                    <i data-lucide="heart" class="w-5 h-5 text-green-500 animate-heartbeat"></i>
+                                </div>
+                                <div>
+                                    <div class="font-display font-bold text-sm text-gray-800">Amor Garantido</div>
+                                    <div class="text-xs text-gray-500">100% de carinho</div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="absolute -bottom-4 -left-4 sm:left-0 clay-card bg-white p-4 animate-float-delay" data-aos="zoom-in" data-aos-delay="700">
+                            <div class="flex items-center gap-3">
+                                <div class="w-10 h-10 bg-pet-blue/10 rounded-full flex items-center justify-center">
+                                    <i data-lucide="shield-check" class="w-5 h-5 text-pet-blue"></i>
+                                </div>
+                                <div>
+                                    <div class="font-display font-bold text-sm text-gray-800">Vet 24 Horas</div>
+                                    <div class="text-xs text-gray-500">Sempre protegido</div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="absolute top-1/2 -right-4 sm:-right-8 clay-card bg-pet-orange text-white p-3 animate-float-slow" data-aos="zoom-in" data-aos-delay="900">
+                            <div class="flex items-center gap-2">
+                                <i data-lucide="star" class="w-4 h-4 fill-current"></i>
+                                <span class="font-display font-bold text-sm">4.9/5</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Scroll indicator -->
+        <div class="absolute bottom-8 left-1/2 -translate-x-1/2 animate-bounce">
+            <a href="#servicos" class="flex flex-col items-center gap-2 text-gray-400 hover:text-pet-orange transition-colors">
+                <span class="text-xs font-display font-semibold">Conheça mais</span>
+                <i data-lucide="chevron-down" class="w-5 h-5"></i>
+            </a>
+        </div>
+    </section>
+
+    <!-- Serviços Section -->
+    <section id="servicos" class="py-20 relative">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <!-- Section Header -->
+            <div class="text-center mb-16" data-aos="fade-up">
+                <div class="inline-flex items-center gap-2 bg-pet-orange/10 clay-card px-4 py-2 mb-4">
+                    <i data-lucide="sparkles" class="w-4 h-4 text-pet-orange"></i>
+                    <span class="font-display font-semibold text-sm text-pet-orange">Nossos Serviços</span>
+                </div>
+                <h2 class="font-display font-extrabold text-4xl sm:text-5xl text-gray-800 mb-4">
+                    Tudo que seu pet
+                    <span class="text-pet-orange">precisa</span>
+                </h2>
+                <p class="text-lg text-gray-600 max-w-2xl mx-auto">
+                    Oferecemos uma linha completa de serviços para manter seu pet saudável, feliz e lindo!
+                </p>
+            </div>
+
+            <!-- Services Grid -->
+            <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-8">
+                <!-- Banho & Tosa -->
+                <div class="clay-card bg-white p-6 sm:p-8 group" data-aos="fade-up" data-aos-delay="100">
+                    <div class="service-icon-bg w-16 h-16 rounded-2xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform">
+                        <i data-lucide="droplets" class="w-8 h-8 text-pet-orange"></i>
+                    </div>
+                    <h3 class="font-display font-bold text-xl text-gray-800 mb-3">Banho & Tosa</h3>
+                    <p class="text-gray-600 mb-6">
+                        Banho completo com produtos de alta qualidade e tosa profissional no estilo que seu pet merece.
+                    </p>
+                    <div class="flex items-center gap-2 text-pet-orange font-display font-semibold text-sm">
+                        <span>A partir de R$ 45</span>
+                        <i data-lucide="arrow-right" class="w-4 h-4 group-hover:translate-x-1 transition-transform"></i>
+                    </div>
+                </div>
+
+                <!-- Veterinária -->
+                <div class="clay-card bg-white p-6 sm:p-8 group" data-aos="fade-up" data-aos-delay="200">
+                    <div class="service-icon-bg w-16 h-16 rounded-2xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform">
+                        <i data-lucide="stethoscope" class="w-8 h-8 text-pet-blue"></i>
+                    </div>
+                    <h3 class="font-display font-bold text-xl text-gray-800 mb-3">Veterinária 24h</h3>
+                    <p class="text-gray-600 mb-6">
+                        Plantão veterinário 24 horas, vacinas, exames e cuidados médicos completos para seu pet.
+                    </p>
+                    <div class="flex items-center gap-2 text-pet-blue font-display font-semibold text-sm">
+                        <span>Emergência 24h</span>
+                        <i data-lucide="arrow-right" class="w-4 h-4 group-hover:translate-x-1 transition-transform"></i>
+                    </div>
+                </div>
+
+                <!-- Hotelzinho -->
+                <div class="clay-card bg-white p-6 sm:p-8 group" data-aos="fade-up" data-aos-delay="300">
+                    <div class="service-icon-bg w-16 h-16 rounded-2xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform">
+                        <i data-lucide="home" class="w-8 h-8 text-pet-orange"></i>
+                    </div>
+                    <h3 class="font-display font-bold text-xl text-gray-800 mb-3">Hotelzinho</h3>
+                    <p class="text-gray-600 mb-6">
+                        Hospedagem com muito carinho, espaço para brincadeiras e monitoramento constante enquanto você viaja.
+                    </p>
+                    <div class="flex items-center gap-2 text-pet-orange font-display font-semibold text-sm">
+                        <span>Diária a partir de R$ 80</span>
+                        <i data-lucide="arrow-right" class="w-4 h-4 group-hover:translate-x-1 transition-transform"></i>
+                    </div>
+                </div>
+
+                <!-- Adestramento -->
+                <div class="clay-card bg-white p-6 sm:p-8 group" data-aos="fade-up" data-aos-delay="400">
+                    <div class="service-icon-bg w-16 h-16 rounded-2xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform">
+                        <i data-lucide="graduation-cap" class="w-8 h-8 text-pet-blue"></i>
+                    </div>
+                    <h3 class="font-display font-bold text-xl text-gray-800 mb-3">Adestramento</h3>
+                    <p class="text-gray-600 mb-6">
+                        Treinamento positivo com profissionais certificados. Comandos básicos, socialização e correção de comportamentos.
+                    </p>
+                    <div class="flex items-center gap-2 text-pet-blue font-display font-semibold text-sm">
+                        <span>Aulas semanais</span>
+                        <i data-lucide="arrow-right" class="w-4 h-4 group-hover:translate-x-1 transition-transform"></i>
+                    </div>
+                </div>
+            </div>
+
+            <!-- CTA Banner -->
+            <div class="mt-16 clay-section bg-gradient-to-r from-pet-orange to-pet-orange-light p-8 sm:p-12 text-center" data-aos="zoom-in">
+                <div class="flex flex-col sm:flex-row items-center justify-center gap-6">
+                    <div class="text-white">
+                        <h3 class="font-display font-bold text-2xl sm:text-3xl mb-2">Primeiro banho grátis!</h3>
+                        <p class="text-white/90">Agende agora e ganhe o primeiro banho do seu pet sem custo.</p>
+                    </div>
+                    <a href="#agendamento" class="clay-button bg-white text-pet-orange font-display font-bold px-8 py-4 hover:bg-pet-cream shrink-0 inline-flex items-center gap-2">
+                        <i data-lucide="gift" class="w-5 h-5"></i>
+                        Quero Aproveitar
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Produtos Section -->
+    <section id="produtos" class="py-20 relative">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16" data-aos="fade-up">
+                <div class="inline-flex items-center gap-2 bg-pet-blue/10 clay-card px-4 py-2 mb-4">
+                    <i data-lucide="shopping-bag" class="w-4 h-4 text-pet-blue"></i>
+                    <span class="font-display font-semibold text-sm text-pet-blue">Nossos Produtos</span>
+                </div>
+                <h2 class="font-display font-extrabold text-4xl sm:text-5xl text-gray-800 mb-4">
+                    Qualidade para seu
+                    <span class="text-pet-blue">melhor amigo</span>
+                </h2>
+                <p class="text-lg text-gray-600 max-w-2xl mx-auto">
+                    Rações premium, petiscos naturais, brinquedos, acessórios e muito mais para o bem-estar do seu pet.
+                </p>
+            </div>
+
+            <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-8">
+                <!-- Product 1 -->
+                <div class="clay-card bg-white overflow-hidden group" data-aos="fade-up" data-aos-delay="100">
+                    <div class="aspect-[4/3] overflow-hidden">
+                        <img src="https://images.unsplash.com/photo-1589924691995-400dc9b8fc83?w=600&h=450&fit=crop&crop=center" 
+                             alt="Ração premium para cães" 
+                             class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500">
+                    </div>
+                    <div class="p-6">
+                        <div class="flex items-center gap-2 mb-2">
+                            <span class="bg-pet-orange/10 text-pet-orange text-xs font-display font-bold px-2 py-1 rounded-full">Mais Vendido</span>
+                        </div>
+                        <h3 class="font-display font-bold text-lg text-gray-800 mb-2">Ração Super Premium</h3>
+                        <p class="text-gray-600 text-sm mb-4">Ração de alta qualidade com ingredientes naturais para cães adultos.</p>
+                        <div class="flex items-center justify-between">
+                            <span class="font-display font-bold text-xl text-pet-orange">R$ 189,90</span>
+                            <button class="clay-button bg-pet-orange text-white p-3 hover:bg-pet-orange-dark">
+                                <i data-lucide="shopping-cart" class="w-4 h-4"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Product 2 -->
+                <div class="clay-card bg-white overflow-hidden group" data-aos="fade-up" data-aos-delay="200">
+                    <div class="aspect-[4/3] overflow-hidden">
+                        <img src="https://images.unsplash.com/photo-1545249390-6bdfa2aeb079?w=600&h=450&fit=crop&crop=center" 
+                             alt="Brinquedos para pets" 
+                             class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500">
+                    </div>
+                    <div class="p-6">
+                        <div class="flex items-center gap-2 mb-2">
+                            <span class="bg-pet-blue/10 text-pet-blue text-xs font-display font-bold px-2 py-1 rounded-full">Novo</span>
+                        </div>
+                        <h3 class="font-display font-bold text-lg text-gray-800 mb-2">Kit Brinquedos Interativos</h3>
+                        <p class="text-gray-600 text-sm mb-4">Brinquedos que estimulam a inteligência e mantêm seu pet entretido por horas.</p>
+                        <div class="flex items-center justify-between">
+                            <span class="font-display font-bold text-xl text-pet-orange">R$ 59,90</span>
+                            <button class="clay-button bg-pet-orange text-white p-3 hover:bg-pet-orange-dark">
+                                <i data-lucide="shopping-cart" class="w-4 h-4"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Product 3 -->
+                <div class="clay-card bg-white overflow-hidden group" data-aos="fade-up" data-aos-delay="300">
+                    <div class="aspect-[4/3] overflow-hidden">
+                        <img src="https://images.unsplash.com/photo-1601758228041-f3b2795255f1?w=600&h=450&fit=crop&crop=center" 
+                             alt="Cama confortável para pets" 
+                             class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500">
+                    </div>
+                    <div class="p-6">
+                        <div class="flex items-center gap-2 mb-2">
+                            <span class="bg-green-100 text-green-600 text-xs font-display font-bold px-2 py-1 rounded-full">Conforto</span>
+                        </div>
+                        <h3 class="font-display font-bold text-lg text-gray-800 mb-2">Cama Ortopédica Premium</h3>
+                        <p class="text-gray-600 text-sm mb-4">Cama ergonômica com espuma de memória para o descanso perfeito do seu pet.</p>
+                        <div class="flex items-center justify-between">
+                            <span class="font-display font-bold text-xl text-pet-orange">R$ 249,90</span>
+                            <button class="clay-button bg-pet-orange text-white p-3 hover:bg-pet-orange-dark">
+                                <i data-lucide="shopping-cart" class="w-4 h-4"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Product 4 -->
+                <div class="clay-card bg-white overflow-hidden group" data-aos="fade-up" data-aos-delay="100">
+                    <div class="aspect-[4/3] overflow-hidden">
+                        <img src="https://images.unsplash.com/photo-1516734212186-a967f81ad0d7?w=600&h=450&fit=crop&crop=center" 
+                             alt="Petiscos naturais" 
+                             class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500">
+                    </div>
+                    <div class="p-6">
+                        <div class="flex items-center gap-2 mb-2">
+                            <span class="bg-pet-orange/10 text-pet-orange text-xs font-display font-bold px-2 py-1 rounded-full">Natural</span>
+                        </div>
+                        <h3 class="font-display font-bold text-lg text-gray-800 mb-2">Petiscos Naturais</h3>
+                        <p class="text-gray-600 text-sm mb-4">Petiscos feitos com ingredientes 100% naturais, sem conservantes artificiais.</p>
+                        <div class="flex items-center justify-between">
+                            <span class="font-display font-bold text-xl text-pet-orange">R$ 29,90</span>
+                            <button class="clay-button bg-pet-orange text-white p-3 hover:bg-pet-orange-dark">
+                                <i data-lucide="shopping-cart" class="w-4 h-4"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Product 5 -->
+                <div class="clay-card bg-white overflow-hidden group" data-aos="fade-up" data-aos-delay="200">
+                    <div class="aspect-[4/3] overflow-hidden">
+                        <img src="https://images.unsplash.com/photo-1583337130417-3346a1be7dee?w=600&h=450&fit=crop&crop=center" 
+                             alt="Coleira e acessórios" 
+                             class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500">
+                    </div>
+                    <div class="p-6">
+                        <div class="flex items-center gap-2 mb-2">
+                            <span class="bg-pet-blue/10 text-pet-blue text-xs font-display font-bold px-2 py-1 rounded-full">Estilo</span>
+                        </div>
+                        <h3 class="font-display font-bold text-lg text-gray-800 mb-2">Coleira Refletiva + Guia</h3>
+                        <p class="text-gray-600 text-sm mb-4">Coleira com material refletivo para passeios seguros à noite. Guia resistente inclusa.</p>
+                        <div class="flex items-center justify-between">
+                            <span class="font-display font-bold text-xl text-pet-orange">R$ 45,90</span>
+                            <button class="clay-button bg-pet-orange text-white p-3 hover:bg-pet-orange-dark">
+                                <i data-lucide="shopping-cart" class="w-4 h-4"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Product 6 -->
+                <div class="clay-card bg-white overflow-hidden group" data-aos="fade-up" data-aos-delay="300">
+                    <div class="aspect-[4/3] overflow-hidden">
+                        <img src="https://images.unsplash.com/photo-1576201836106-db1758fd1c97?w=600&h=450&fit=crop&crop=center" 
+                             alt="Shampoo e produtos de higiene" 
+                             class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500">
+                    </div>
+                    <div class="p-6">
+                        <div class="flex items-center gap-2 mb-2">
+                            <span class="bg-green-100 text-green-600 text-xs font-display font-bold px-2 py-1 rounded-full">Higiene</span>
+                        </div>
+                        <h3 class="font-display font-bold text-lg text-gray-800 mb-2">Kit Higiene Completo</h3>
+                        <p class="text-gray-600 text-sm mb-4">Shampoo, condicionador, escova e toalha. Tudo para o banho em casa.</p>
+                        <div class="flex items-center justify-between">
+                            <span class="font-display font-bold text-xl text-pet-orange">R$ 79,90</span>
+                            <button class="clay-button bg-pet-orange text-white p-3 hover:bg-pet-orange-dark">
+                                <i data-lucide="shopping-cart" class="w-4 h-4"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Galeria Section -->
+    <section id="galeria" class="py-20 relative">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16" data-aos="fade-up">
+                <div class="inline-flex items-center gap-2 bg-pet-orange/10 clay-card px-4 py-2 mb-4">
+                    <i data-lucide="image" class="w-4 h-4 text-pet-orange"></i>
+                    <span class="font-display font-semibold text-sm text-pet-orange">Galeria de Pets</span>
+                </div>
+                <h2 class="font-display font-extrabold text-4xl sm:text-5xl text-gray-800 mb-4">
+                    Momentos de
+                    <span class="text-pet-orange">felicidade</span>
+                </h2>
+                <p class="text-lg text-gray-600 max-w-2xl mx-auto">
+                    Confira alguns dos pets que já passaram pelo Pet Amigo. Cada um deles é especial para nós!
+                </p>
+            </div>
+
+            <!-- Masonry-like Gallery -->
+            <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 auto-rows-[200px]">
+                <!-- Tall Item -->
+                <div class="gallery-item row-span-2 relative group" data-aos="fade-up" data-aos-delay="100">
+                    <img src="https://images.unsplash.com/photo-1587300003388-59208cc962cb?w=500&h=800&fit=crop&crop=center" 
+                         alt="Cachorro feliz no pet shop" 
+                         class="w-full h-full object-cover">
+                    <div class="gallery-overlay absolute inset-0 bg-gradient-to-t from-black/60 to-transparent flex items-end p-4">
+                        <div class="text-white">
+                            <p class="font-display font-bold">Thor</p>
+                            <p class="text-sm text-white/80">Banho & Tosa</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Normal Item -->
+                <div class="gallery-item relative group" data-aos="fade-up" data-aos-delay="200">
+                    <img src="https://images.unsplash.com/photo-1514888286974-6c03e2ca1dba?w=500&h=500&fit=crop&crop=center" 
+                         alt="Gato relaxado" 
+                         class="w-full h-full object-cover">
+                    <div class="gallery-overlay absolute inset-0 bg-gradient-to-t from-black/60 to-transparent flex items-end p-4">
+                        <div class="text-white">
+                            <p class="font-display font-bold">Luna</p>
+                            <p class="text-sm text-white/80">Hotelzinho</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Normal Item -->
+                <div class="gallery-item relative group" data-aos="fade-up" data-aos-delay="300">
+                    <img src="https://images.unsplash.com/photo-1548199973-03cce0bbc87b?w=500&h=500&fit=crop&crop=center" 
+                         alt="Cachorros brincando" 
+                         class="w-full h-full object-cover">
+                    <div class="gallery-overlay absolute inset-0 bg-gradient-to-t from-black/60 to-transparent flex items-end p-4">
+                        <div class="text-white">
+                            <p class="font-display font-bold">Max & Bob</p>
+                            <p class="text-sm text-white/80">Adestramento</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Tall Item -->
+                <div class="gallery-item row-span-2 relative group" data-aos="fade-up" data-aos-delay="400">
+                    <img src="https://images.unsplash.com/photo-1608096299210-db7e38487075?w=500&h=800&fit=crop&crop=center" 
+                         alt="Golden Retriever feliz" 
+                         class="w-full h-full object-cover">
+                    <div class="gallery-overlay absolute inset-0 bg-gradient-to-t from-black/60 to-transparent flex items-end p-4">
+                        <div class="text-white">
+                            <p class="font-display font-bold">Mel</p>
+                            <p class="text-sm text-white/80">Banho Especial</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Normal Item -->
+                <div class="gallery-item relative group" data-aos="fade-up" data-aos-delay="100">
+                    <img src="https://images.unsplash.com/photo-1592194996308-7b43878e84a6?w=500&h=500&fit=crop&crop=center" 
+                         alt="Gato curioso" 
+                         class="w-full h-full object-cover">
+                    <div class="gallery-overlay absolute inset-0 bg-gradient-to-t from-black/60 to-transparent flex items-end p-4">
+                        <div class="text-white">
+                            <p class="font-display font-bold">Simba</p>
+                            <p class="text-sm text-white/80">Consulta Vet</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Wide Item -->
+                <div class="gallery-item col-span-2 relative group" data-aos="fade-up" data-aos-delay="200">
+                    <img src="https://images.unsplash.com/photo-1601758124510-52d02ddb7cbd?w=800&h=400&fit=crop&crop=center" 
+                         alt="Família de pets" 
+                         class="w-full h-full object-cover">
+                    <div class="gallery-overlay absolute inset-0 bg-gradient-to-t from-black/60 to-transparent flex items-end p-4">
+                        <div class="text-white">
+                            <p class="font-display font-bold">Turma do Pet Amigo</p>
+                            <p class="text-sm text-white/80">Dia de Festa</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Normal Item -->
+                <div class="gallery-item relative group" data-aos="fade-up" data-aos-delay="300">
+                    <img src="https://images.unsplash.com/photo-1583511655857-d19b40a7a54e?w=500&h=500&fit=crop&crop=center" 
+                         alt="Bulldog fofo" 
+                         class="w-full h-full object-cover">
+                    <div class="gallery-overlay absolute inset-0 bg-gradient-to-t from-black/60 to-transparent flex items-end p-4">
+                        <div class="text-white">
+                            <p class="font-display font-bold">Beto</p>
+                            <p class="text-sm text-white/80">Tosa Higiênica</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Normal Item -->
+                <div class="gallery-item relative group" data-aos="fade-up" data-aos-delay="400">
+                    <img src="https://images.unsplash.com/photo-1573865526739-10659fec78a5?w=500&h=500&fit=crop&crop=center" 
+                         alt="Gato olhando pela janela" 
+                         class="w-full h-full object-cover">
+                    <div class="gallery-overlay absolute inset-0 bg-gradient-to-t from-black/60 to-transparent flex items-end p-4">
+                        <div class="text-white">
+                            <p class="font-display font-bold">Mia</p>
+                            <p class="text-sm text-white/80">Hospedagem</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Depoimentos Section -->
+    <section class="py-20 relative">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="clay-section bg-white p-8 sm:p-12 lg:p-16" data-aos="fade-up">
+                <div class="text-center mb-12">
+                    <div class="inline-flex items-center gap-2 bg-pet-blue/10 clay-card px-4 py-2 mb-4">
+                        <i data-lucide="message-circle" class="w-4 h-4 text-pet-blue"></i>
+                        <span class="font-display font-semibold text-sm text-pet-blue">Depoimentos</span>
+                    </div>
+                    <h2 class="font-display font-extrabold text-3xl sm:text-4xl text-gray-800">
+                        O que os <span class="text-pet-blue">tutores</span> dizem
+                    </h2>
+                </div>
+
+                <div class="grid md:grid-cols-3 gap-8">
+                    <!-- Testimonial 1 -->
+                    <div class="clay-card bg-pet-cream p-6" data-aos="fade-up" data-aos-delay="100">
+                        <div class="flex gap-1 mb-4">
+                            <i data-lucide="star" class="w-5 h-5 text-pet-orange fill-current"></i>
+                            <i data-lucide="star" class="w-5 h-5 text-pet-orange fill-current"></i>
+                            <i data-lucide="star" class="w-5 h-5 text-pet-orange fill-current"></i>
+                            <i data-lucide="star" class="w-5 h-5 text-pet-orange fill-current"></i>
+                            <i data-lucide="star" class="w-5 h-5 text-pet-orange fill-current"></i>
+                        </div>
+                        <p class="text-gray-700 mb-6 italic">"O Pet Amigo salvou meu cachorro em uma emergência às 3 da manhã. O atendimento veterinário 24h é um diferencial enorme. Sempre recomendo!"</p>
+                        <div class="flex items-center gap-3">
+                            <img src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=100&h=100&fit=crop&crop=face" 
+                                 alt="Cliente satisfeita" 
+                                 class="w-12 h-12 rounded-full object-cover border-2 border-pet-orange">
+                            <div>
+                                <p class="font-display font-bold text-gray-800">Mariana Silva</p>
+                                <p class="text-sm text-gray-500">Tutora do Thor</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Testimonial 2 -->
+                    <div class="clay-card bg-pet-cream p-6" data-aos="fade-up" data-aos-delay="200">
+                        <div class="flex gap-1 mb-4">
+                            <i data-lucide="star" class="w-5 h-5 text-pet-orange fill-current"></i>
+                            <i data-lucide="star" class="w-5 h-5 text-pet-orange fill-current"></i>
+                            <i data-lucide="star" class="w-5 h-5 text-pet-orange fill-current"></i>
+                            <i data-lucide="star" class="w-5 h-5 text-pet-orange fill-current"></i>
+                            <i data-lucide="star" class="w-5 h-5 text-pet-orange fill-current"></i>
+                        </div>
+                        <p class="text-gray-700 mb-6 italic">"Levo minha gata Luna para o hotelzinho sempre que viajo. Ela volta feliz e bem cuidada. A equipe é super atenciosa e manda fotos durante a hospedagem!"</p>
+                        <div class="flex items-center gap-3">
+                            <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=100&h=100&fit=crop&crop=face" 
+                                 alt="Cliente satisfeito" 
+                                 class="w-12 h-12 rounded-full object-cover border-2 border-pet-orange">
+                            <div>
+                                <p class="font-display font-bold text-gray-800">Carlos Eduardo</p>
+                                <p class="text-sm text-gray-500">Tutor da Luna</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Testimonial 3 -->
+                    <div class="clay-card bg-pet-cream p-6" data-aos="fade-up" data-aos-delay="300">
+                        <div class="flex gap-1 mb-4">
+                            <i data-lucide="star" class="w-5 h-5 text-pet-orange fill-current"></i>
+                            <i data-lucide="star" class="w-5 h-5 text-pet-orange fill-current"></i>
+                            <i data-lucide="star" class="w-5 h-5 text-pet-orange fill-current"></i>
+                            <i data-lucide="star" class="w-5 h-5 text-pet-orange fill-current"></i>
+                            <i data-lucide="star" class="w-5 h-5 text-pet-orange fill-current"></i>
+                        </div>
+                        <p class="text-gray-700 mb-6 italic">"Banho e tosa impecáveis! Meu golden sai sempre cheiroso, macio e com um corte lindo. Os produtos que vendem também são ótimos e duráveis."</p>
+                        <div class="flex items-center gap-3">
+                            <img src="https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=100&h=100&fit=crop&crop=face" 
+                                 alt="Cliente satisfeita" 
+                                 class="w-12 h-12 rounded-full object-cover border-2 border-pet-orange">
+                            <div>
+                                <p class="font-display font-bold text-gray-800">Fernanda Costa</p>
+                                <p class="text-sm text-gray-500">Tutora da Mel</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Agendamento Section -->
+    <section id="agendamento" class="py-20 relative">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid lg:grid-cols-2 gap-12 items-center">
+                <!-- Form Side -->
+                <div data-aos="fade-right">
+                    <div class="inline-flex items-center gap-2 bg-pet-orange/10 clay-card px-4 py-2 mb-4">
+                        <i data-lucide="calendar-check" class="w-4 h-4 text-pet-orange"></i>
+                        <span class="font-display font-semibold text-sm text-pet-orange">Agendamento Online</span>
+                    </div>
+                    <h2 class="font-display font-extrabold text-4xl sm:text-5xl text-gray-800 mb-4">
+                        Agende agora com
+                        <span class="text-pet-orange">facilidade</span>
+                    </h2>
+                    <p class="text-lg text-gray-600 mb-8">
+                        Preencha o formulário e entraremos em contato para confirmar seu horário. Seu pet está a um clique de distância do melhor cuidado!
+                    </p>
+
+                    <form class="space-y-6" onsubmit="event.preventDefault(); alert('Agendamento enviado com sucesso! Entraremos em contato em brede.');">
+                        <div class="grid sm:grid-cols-2 gap-6">
+                            <div>
+                                <label class="font-display font-semibold text-gray-700 mb-2 block">Seu nome</label>
+                                <input type="text" placeholder="Como podemos te chamar?" 
+                                       class="clay-input w-full px-5 py-3 bg-white/80" required>
+                            </div>
+                            <div>
+                                <label class="font-display font-semibold text-gray-700 mb-2 block">Telefone</label>
+                                <input type="tel" placeholder="(XX) XXXXX-XXXX" 
+                                       class="clay-input w-full px-5 py-3 bg-white/80" required>
+                            </div>
+                        </div>
+
+                        <div class="grid sm:grid-cols-2 gap-6">
+                            <div>
+                                <label class="font-display font-semibold text-gray-700 mb-2 block">Nome do Pet</label>
+                                <input type="text" placeholder="Qual o nome do seu pet?" 
+                                       class="clay-input w-full px-5 py-3 bg-white/80" required>
+                            </div>
+                            <div>
+                                <label class="font-display font-semibold text-gray-700 mb-2 block">Tipo de Pet</label>
+                                <select class="clay-input w-full px-5 py-3 bg-white/80">
+                                    <option>Cachorro</option>
+                                    <option>Gato</option>
+                                    <option>Pássaro</option>
+                                    <option>Roedor</option>
+                                    <option>Outro</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div>
+                            <label class="font-display font-semibold text-gray-700 mb-2 block">Serviço Desejado</label>
+                            <select class="clay-input w-full px-5 py-3 bg-white/80">
+                                <option>Banho & Tosa</option>
+                                <option>Consulta Veterinária</option>
+                                <option>Hotelzinho</option>
+                                <option>Adestramento</option>
+                                <option>Vacinação</option>
+                                <option>Outro</option>
+                            </select>
+                        </div>
+
+                        <div>
+                            <label class="font-display font-semibold text-gray-700 mb-2 block">Data Preferencial</label>
+                            <input type="date" class="clay-input w-full px-5 py-3 bg-white/80">
+                        </div>
+
+                        <div>
+                            <label class="font-display font-semibold text-gray-700 mb-2 block">Observações</label>
+                            <textarea rows="4" placeholder="Conte-nos mais sobre seu pet ou alguma necessidade especial..." 
+                                      class="clay-input w-full px-5 py-3 bg-white/80 resize-none"></textarea>
+                        </div>
+
+                        <button type="submit" class="clay-button w-full bg-pet-orange text-white font-display font-bold text-lg px-8 py-4 hover:bg-pet-orange-dark inline-flex items-center justify-center gap-3">
+                            <i data-lucide="send" class="w-5 h-5"></i>
+                            Solicitar Agendamento
+                        </button>
+                    </form>
+                </div>
+
+                <!-- Info Side -->
+                <div class="relative" data-aos="fade-left">
+                    <div class="clay-card overflow-hidden mb-8">
+                        <img src="https://images.unsplash.com/photo-1628009368231-7bb7cfcb0e95?w=700&h=500&fit=crop&crop=center" 
+                             alt="Equipe Pet Amigo com pets" 
+                             class="w-full h-64 sm:h-80 object-cover">
+                    </div>
+
+                    <div class="space-y-4">
+                        <div class="clay-card bg-white p-6 flex items-start gap-4">
+                            <div class="w-12 h-12 bg-pet-orange/10 rounded-xl flex items-center justify-center shrink-0">
+                                <i data-lucide="map-pin" class="w-6 h-6 text-pet-orange"></i>
+                            </div>
+                            <div>
+                                <h4 class="font-display font-bold text-gray-800">Endereço</h4>
+                                <p class="text-gray-600">Av. dos Imigrantes, 1500 — Jardim das Oliveiras<br>Bragança Paulista, SP</p>
+                            </div>
+                        </div>
+
+                        <div class="clay-card bg-white p-6 flex items-start gap-4">
+                            <div class="w-12 h-12 bg-pet-blue/10 rounded-xl flex items-center justify-center shrink-0">
+                                <i data-lucide="clock" class="w-6 h-6 text-pet-blue"></i>
+                            </div>
+                            <div>
+                                <h4 class="font-display font-bold text-gray-800">Horário de Funcionamento</h4>
+                                <p class="text-gray-600">Segunda a Sábado: 8h às 20h<br>Domingo: 9h às 14h<br><span class="text-pet-blue font-semibold">Veterinária 24h todos os dias</span></p>
+                            </div>
+                        </div>
+
+                        <div class="clay-card bg-white p-6 flex items-start gap-4">
+                            <div class="w-12 h-12 bg-pet-orange/10 rounded-xl flex items-center justify-center shrink-0">
+                                <i data-lucide="phone" class="w-6 h-6 text-pet-orange"></i>
+                            </div>
+                            <div>
+                                <h4 class="font-display font-bold text-gray-800">Contato</h4>
+                                <p class="text-gray-600">(11) 4033-4521<br>WhatsApp: (11) 98765-4321<br>contato@petamigo.com.br</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="relative mt-20">
+        <!-- Wave Separator -->
+        <div class="absolute -top-px left-0 right-0">
+            <svg viewBox="0 0 1440 80" fill="none" xmlns="http://www.w3.org/2000/svg" class="w-full">
+                <path d="M0 80V40C240 0 480 0 720 20C960 40 1200 60 1440 40V80H0Z" fill="#F97316"/>
+            </svg>
+        </div>
+
+        <div class="bg-pet-orange pt-16 pb-8">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-8 mb-12">
+                    <!-- Brand -->
+                    <div class="sm:col-span-2 lg:col-span-1">
+                        <div class="flex items-center gap-3 mb-4">
+                            <div class="w-10 h-10 bg-white rounded-full flex items-center justify-center">
+                                <i data-lucide="paw-print" class="w-5 h-5 text-pet-orange"></i>
+                            </div>
+                            <div>
+                                <h3 class="font-display font-bold text-xl text-white">Pet Amigo</h3>
+                            </div>
+                        </div>
+                        <p class="text-white/90 mb-6">
+                            Cuidando do seu melhor amigo com amor, dedicação e profissionalismo desde 2008 em Bragança Paulista.
+                        </p>
+                        <div class="flex gap-3">
+                            <a href="#" class="w-10 h-10 bg-white/20 rounded-full flex items-center justify-center hover:bg-white/30 transition-colors">
+                                <i data-lucide="instagram" class="w-5 h-5 text-white"></i>
+                            </a>
+                            <a href="#" class="w-10 h-10 bg-white/20 rounded-full flex items-center justify-center hover:bg-white/30 transition-colors">
+                                <i data-lucide="facebook" class="w-5 h-5 text-white"></i>
+                            </a>
+                            <a href="#" class="w-10 h-10 bg-white/20 rounded-full flex items-center justify-center hover:bg-white/30 transition-colors">
+                                <i data-lucide="youtube" class="w-5 h-5 text-white"></i>
+                            </a>
+                        </div>
+                    </div>
+
+                    <!-- Quick Links -->
+                    <div>
+                        <h4 class="font-display font-bold text-white mb-4">Links Rápidos</h4>
+                        <ul class="space-y-2">
+                            <li><a href="#servicos" class="text-white/80 hover:text-white transition-colors">Serviços</a></li>
+                            <li><a href="#produtos" class="text-white/80 hover:text-white transition-colors">Produtos</a></li>
+                            <li><a href="#galeria" class="text-white/80 hover:text-white transition-colors">Galeria</a></li>
+                            <li><a href="#agendamento" class="text-white/80 hover:text-white transition-colors">Agendamento</a></li>
+                        </ul>
+                    </div>
+
+                    <!-- Services -->
+                    <div>
+                        <h4 class="font-display font-bold text-white mb-4">Serviços</h4>
+                        <ul class="space-y-2">
+                            <li><a href="#" class="text-white/80 hover:text-white transition-colors">Banho & Tosa</a></li>
+                            <li><a href="#" class="text-white/80 hover:text-white transition-colors">Veterinária 24h</a></li>
+                            <li><a href="#" class="text-white/80 hover:text-white transition-colors">Hotelzinho</a></li>
+                            <li><a href="#" class="text-white/80 hover:text-white transition-colors">Adestramento</a></li>
+                            <li><a href="#" class="text-white/80 hover:text-white transition-colors">Pet Shop</a></li>
+                        </ul>
+                    </div>
+
+                    <!-- Contact -->
+                    <div>
+                        <h4 class="font-display font-bold text-white mb-4">Contato</h4>
+                        <ul class="space-y-3">
+                            <li class="flex items-center gap-3 text-white/80">
+                                <i data-lucide="map-pin" class="w-4 h-4 shrink-0"></i>
+                                <span>Av. dos Imigrantes, 1500</span>
+                            </li>
+                            <li class="flex items-center gap-3 text-white/80">
+                                <i data-lucide="phone" class="w-4 h-4 shrink-0"></i>
+                                <span>(11) 4033-4521</span>
+                            </li>
+                            <li class="flex items-center gap-3 text-white/80">
+                                <i data-lucide="mail" class="w-4 h-4 shrink-0"></i>
+                                <span>contato@petamigo.com.br</span>
+                            </li>
+                            <li class="flex items-center gap-3 text-white/80">
+                                <i data-lucide="clock" class="w-4 h-4 shrink-0"></i>
+                                <span>Seg-Sáb: 8h às 20h</span>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Bottom Bar -->
+                <div class="border-t border-white/20 pt-8 flex flex-col sm:flex-row items-center justify-between gap-4">
+                    <p class="text-white/80 text-sm text-center sm:text-left">
+                        © 2026 Pet Amigo. Todos os direitos reservados. Desenvolvido com 🧡 por 
+                        <a href="#" class="text-white font-semibold hover:underline">Akamine Web Studio</a>.
+                    </p>
+                    <div class="flex items-center gap-2 text-white/60 text-sm">
+                        <i data-lucide="heart" class="w-4 h-4 text-white animate-heartbeat"></i>
+                        <span>Feito com amor para pets</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- WhatsApp Float Button -->
+    <a href="https://wa.me/5511987654321" target="_blank" 
+       class="fixed bottom-6 right-6 z-50 w-14 h-14 bg-green-500 rounded-full flex items-center justify-center shadow-lg hover:bg-green-600 transition-colors animate-float"
+       style="box-shadow: 0 4px 20px rgba(34, 197, 94, 0.4);">
+        <svg class="w-7 h-7 text-white" fill="currentColor" viewBox="0 0 24 24">
+            <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.008-.57-.008-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/>
+        </svg>
+    </a>
+
+    <!-- Scripts -->
+    <script>
+        // Initialize Lucide Icons
+        lucide.createIcons();
+
+        // Initialize AOS
+        AOS.init({
+            duration: 800,
+            once: true,
+            offset: 100,
+            easing: 'ease-out-cubic'
+        });
+
+        // Navbar scroll effect
+        const navbar = document.getElementById('navbar');
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 50) {
+                navbar.classList.add('bg-white/95', 'backdrop-blur-md', 'shadow-lg');
+            } else {
+                navbar.classList.remove('bg-white/95', 'backdrop-blur-md', 'shadow-lg');
+            }
+        });
+
+        // Mobile menu
+        const mobileMenuBtn = document.getElementById('mobile-menu-btn');
+        const mobileMenu = document.getElementById('mobile-menu');
+        const mobileMenuClose = document.getElementById('mobile-menu-close');
+        const mobileLinks = document.querySelectorAll('.mobile-link');
+
+        mobileMenuBtn.addEventListener('click', () => {
+            mobileMenu.classList.add('open');
+        });
+
+        mobileMenuClose.addEventListener('click', () => {
+            mobileMenu.classList.remove('open');
+        });
+
+        mobileLinks.forEach(link => {
+            link.addEventListener('click', () => {
+                mobileMenu.classList.remove('open');
+            });
+        });
+
+        // Active nav link based on scroll
+        const sections = document.querySelectorAll('section[id]');
+        const navLinks = document.querySelectorAll('.nav-link');
+
+        window.addEventListener('scroll', () => {
+            let current = '';
+            sections.forEach(section => {
+                const sectionTop = section.offsetTop - 100;
+                if (scrollY >= sectionTop) {
+                    current = section.getAttribute('id');
+                }
+            });
+
+            navLinks.forEach(link => {
+                link.classList.remove('text-pet-orange');
+                if (link.getAttribute('href') === '#' + current) {
+                    link.classList.add('text-pet-orange');
+                }
+            });
+        });
+    </script>
+</body>
+</html>
