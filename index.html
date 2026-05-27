@@ -3,13 +3,20 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Pet Amigo — Pet Shop & Veterinária em Bragança Paulista</title>
-    <meta name="description" content="Pet Amigo: banho, tosa, veterinária 24h, hotel e produtos para seu pet em Bragança Paulista. Cuidamos do seu melhor amigo com amor e profissionalismo.">
+    <title>Pet Amigo — Pet Shop & Veterinária Premium em Bragança Paulista</title>
+    <meta name="description" content="Pet Amigo: banho & tosa, veterinária 24h, hotel e produtos premium para o seu pet em Bragança Paulista. Cuidado de verdade, com amor e ciência.">
+    <meta name="theme-color" content="#F2622E">
 
-    <!-- Google Fonts -->
+    <!-- Performance: preconnect to asset & font origins -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@400;600;700;800&family=Comic+Neue:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="preconnect" href="https://images.unsplash.com">
+    <link rel="preconnect" href="https://images.pexels.com">
+    <link rel="dns-prefetch" href="https://images.unsplash.com">
+    <link rel="dns-prefetch" href="https://images.pexels.com">
+
+    <!-- Google Fonts: Sora (display) + Plus Jakarta Sans (body) -->
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&family=Sora:wght@500;600;700;800&display=swap" rel="stylesheet">
 
     <!-- Tailwind CSS CDN -->
     <script src="https://cdn.tailwindcss.com"></script>
@@ -18,1142 +25,902 @@
             theme: {
                 extend: {
                     colors: {
-                        'pet-orange': '#F97316',
-                        'pet-orange-light': '#FB923C',
-                        'pet-orange-dark': '#EA580C',
-                        'pet-blue': '#2563EB',
-                        'pet-blue-light': '#3B82F6',
-                        'pet-blue-dark': '#1D4ED8',
-                        'pet-cream': '#FFF7ED',
-                        'pet-cream-dark': '#FED7AA',
+                        ink:   { DEFAULT: '#211C17', soft: '#5B5249', faint: '#8A8077' },
+                        brand: { DEFAULT: '#F2622E', light: '#FF8A5C', dark: '#C9491A', tint: '#FFF1EA' },
+                        teal:  { DEFAULT: '#0F9E91', light: '#2DC2B4', dark: '#0A766C', tint: '#E6F6F4' },
+                        gold:  { DEFAULT: '#F4A93C' },
+                        sand:  { DEFAULT: '#FBF5EE', deep: '#F3E8DC' },
+                        cream: '#FFFCF9',
                     },
                     fontFamily: {
-                        'display': ['"Baloo 2"', 'cursive'],
-                        'body': ['"Comic Neue"', 'cursive'],
+                        display: ['Sora', 'system-ui', 'sans-serif'],
+                        body: ['"Plus Jakarta Sans"', 'system-ui', 'sans-serif'],
                     },
+                    boxShadow: {
+                        soft: '0 1px 2px rgba(33,28,23,0.04), 0 10px 30px -12px rgba(33,28,23,0.12)',
+                        card: '0 18px 50px -22px rgba(33,28,23,0.30)',
+                        glow: '0 22px 60px -20px rgba(242,98,46,0.50)',
+                        glowteal: '0 22px 60px -22px rgba(15,158,145,0.45)',
+                    },
+                    borderRadius: { '4xl': '2rem', '5xl': '2.75rem' },
                 }
             }
         }
     </script>
 
-    <!-- AOS Animate On Scroll -->
-    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
-    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
-
     <!-- Lucide Icons -->
-    <script src="https://unpkg.com/lucide@latest"></script>
+    <script src="https://unpkg.com/lucide@latest" defer></script>
 
     <style>
-        /* Custom Claymorphism Styles */
-        .clay-card {
-            border-radius: 2rem;
-            border: 4px solid rgba(255,255,255,0.6);
-            box-shadow:
-                8px 8px 16px rgba(234, 88, 12, 0.15),
-                -8px -8px 16px rgba(255, 255, 255, 0.8),
-                inset 0 0 0 transparent;
-            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-        }
-        .clay-card:hover {
-            transform: translateY(-8px) scale(1.02);
-            box-shadow:
-                12px 12px 24px rgba(234, 88, 12, 0.2),
-                -8px -8px 16px rgba(255, 255, 255, 0.9);
+        :root {
+            --ease-out: cubic-bezier(0.22, 1, 0.36, 1);
+            --ease-spring: cubic-bezier(0.34, 1.56, 0.64, 1);
         }
 
-        .clay-button {
-            border-radius: 9999px;
-            border: 3px solid rgba(255,255,255,0.5);
-            box-shadow:
-                4px 4px 8px rgba(234, 88, 12, 0.2),
-                -4px -4px 8px rgba(255,255,255,0.6);
-            transition: all 0.3s ease;
+        html { scroll-behavior: smooth; scroll-padding-top: 6rem; }
+        body { -webkit-font-smoothing: antialiased; text-rendering: optimizeLegibility; }
+
+        /* ---------- Fluid typography ---------- */
+        .fluid-hero   { font-size: clamp(2.6rem, 6.5vw, 5.2rem); line-height: 1.04; letter-spacing: -0.03em; }
+        .fluid-h2     { font-size: clamp(2rem, 4.2vw, 3.25rem); line-height: 1.08; letter-spacing: -0.025em; }
+        .fluid-lead   { font-size: clamp(1.05rem, 1.6vw, 1.3rem); line-height: 1.6; }
+
+        /* ---------- Glassmorphism ---------- */
+        .glass {
+            background: rgba(255, 252, 249, 0.65);
+            backdrop-filter: blur(18px) saturate(160%);
+            -webkit-backdrop-filter: blur(18px) saturate(160%);
+            border: 1px solid rgba(255, 255, 255, 0.55);
         }
-        .clay-button:hover {
-            transform: translateY(-3px);
-            box-shadow:
-                6px 6px 12px rgba(234, 88, 12, 0.3),
-                -4px -4px 8px rgba(255,255,255,0.7);
-        }
-        .clay-button:active {
-            transform: translateY(0);
-            box-shadow: inset 2px 2px 6px rgba(0,0,0,0.15);
+        .glass-strong {
+            background: rgba(255, 252, 249, 0.86);
+            backdrop-filter: blur(22px) saturate(170%);
+            -webkit-backdrop-filter: blur(22px) saturate(170%);
+            border: 1px solid rgba(255, 255, 255, 0.6);
         }
 
-        .clay-input {
-            border-radius: 1.5rem;
-            border: 3px solid rgba(249, 115, 22, 0.2);
-            box-shadow:
-                inset 3px 3px 6px rgba(0,0,0,0.05),
-                inset -3px -3px 6px rgba(255,255,255,0.8);
-            transition: all 0.3s ease;
+        /* ---------- Gradient text & meshes ---------- */
+        .text-gradient {
+            background: linear-gradient(115deg, #F2622E 0%, #FF8A5C 45%, #F4A93C 100%);
+            -webkit-background-clip: text; background-clip: text; color: transparent;
         }
-        .clay-input:focus {
-            outline: none;
-            border-color: #F97316;
-            box-shadow:
-                inset 3px 3px 6px rgba(0,0,0,0.05),
-                inset -3px -3px 6px rgba(255,255,255,0.8),
-                0 0 0 4px rgba(249, 115, 22, 0.15);
+        .mesh {
+            background:
+                radial-gradient(48rem 48rem at 12% -8%, rgba(242,98,46,0.12), transparent 60%),
+                radial-gradient(42rem 42rem at 100% 8%, rgba(15,158,145,0.12), transparent 58%),
+                radial-gradient(40rem 40rem at 50% 120%, rgba(244,169,60,0.10), transparent 60%);
         }
 
-        .clay-section {
-            border-radius: 3rem;
-            border: 4px solid rgba(255,255,255,0.5);
-        }
-
-        .blob-shape {
-            border-radius: 60% 40% 30% 70% / 60% 30% 70% 40%;
-        }
-        .blob-shape-2 {
-            border-radius: 30% 70% 70% 30% / 30% 30% 70% 70%;
-        }
-        .blob-shape-3 {
-            border-radius: 50% 50% 20% 80% / 25% 80% 20% 75%;
-        }
-
-        /* Floating animation */
-        @keyframes float {
-            0%, 100% { transform: translateY(0px); }
-            50% { transform: translateY(-15px); }
-        }
-        .animate-float {
-            animation: float 4s ease-in-out infinite;
-        }
-        .animate-float-delay {
-            animation: float 4s ease-in-out 1.5s infinite;
-        }
-        .animate-float-slow {
-            animation: float 6s ease-in-out infinite;
-        }
-
-        /* Paw print decoration */
-        .paw-bg {
-            position: relative;
-        }
-        .paw-bg::before {
-            content: '';
-            position: absolute;
-            width: 60px;
-            height: 60px;
-            background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%23F97316' opacity='0.1'%3E%3Cpath d='M12 10.5c-1.5 0-2.7 1.2-2.7 2.7 0 .5.1 1 .4 1.4.3.4.7.7 1.1.9.4.2.8.3 1.2.3s.8-.1 1.2-.3c.4-.2.8-.5 1.1-.9.3-.4.4-.9.4-1.4 0-1.5-1.2-2.7-2.7-2.7zM7.5 6c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2zm9 0c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2zM5 12c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2zm14 0c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2z'/%3E%3C/svg%3E") no-repeat center;
-            background-size: contain;
-        }
-
-        /* Smooth scroll */
-        html {
-            scroll-behavior: smooth;
-        }
-
-        /* Custom scrollbar */
-        ::-webkit-scrollbar {
-            width: 12px;
-        }
-        ::-webkit-scrollbar-track {
-            background: #FFF7ED;
-        }
-        ::-webkit-scrollbar-thumb {
-            background: #F97316;
-            border-radius: 10px;
-            border: 3px solid #FFF7ED;
-        }
-        ::-webkit-scrollbar-thumb:hover {
-            background: #EA580C;
-        }
-
-        /* Navigation */
-        .nav-link {
-            position: relative;
-        }
-        .nav-link::after {
-            content: '';
-            position: absolute;
-            bottom: -4px;
-            left: 0;
-            width: 0;
-            height: 3px;
-            background: #F97316;
-            border-radius: 2px;
-            transition: width 0.3s ease;
-        }
-        .nav-link:hover::after {
-            width: 100%;
-        }
-
-        /* Service card icon bg */
-        .service-icon-bg {
-            background: linear-gradient(135deg, #FFF7ED 0%, #FED7AA 100%);
-            border: 3px solid rgba(249, 115, 22, 0.2);
-        }
-
-        /* Gallery hover */
-        .gallery-item {
-            overflow: hidden;
-            border-radius: 1.5rem;
-            border: 4px solid white;
-        }
-        .gallery-item img {
-            transition: transform 0.5s ease;
-        }
-        .gallery-item:hover img {
-            transform: scale(1.1);
-        }
-        .gallery-overlay {
+        /* ---------- Reveal on scroll (Intersection Observer) ---------- */
+        .reveal {
             opacity: 0;
-            transition: opacity 0.3s ease;
+            transform: translateY(34px);
+            transition: opacity 0.8s var(--ease-out), transform 0.8s var(--ease-out);
+            transition-delay: var(--reveal-delay, 0ms);
+            will-change: transform, opacity;
         }
-        .gallery-item:hover .gallery-overlay {
-            opacity: 1;
+        .reveal[data-reveal="left"]  { transform: translateX(-40px); }
+        .reveal[data-reveal="right"] { transform: translateX(40px); }
+        .reveal[data-reveal="zoom"]  { transform: scale(0.94); }
+        .reveal.is-visible { opacity: 1; transform: none; }
+
+        /* ---------- Floating decor ---------- */
+        @keyframes float-y { 0%,100% { transform: translateY(0); } 50% { transform: translateY(-18px); } }
+        @keyframes float-y-sm { 0%,100% { transform: translateY(0); } 50% { transform: translateY(-10px); } }
+        @keyframes spin-slow { to { transform: rotate(360deg); } }
+        @keyframes heartbeat { 0%,100%{transform:scale(1);} 14%{transform:scale(1.18);} 28%{transform:scale(1);} 42%{transform:scale(1.18);} 70%{transform:scale(1);} }
+        @keyframes shimmer { 100% { transform: translateX(100%); } }
+        .anim-float   { animation: float-y 6s var(--ease-out) infinite; }
+        .anim-float-2 { animation: float-y 7s var(--ease-out) 1.2s infinite; }
+        .anim-float-sm{ animation: float-y-sm 5s var(--ease-out) infinite; }
+        .anim-heart   { animation: heartbeat 1.6s ease-in-out infinite; }
+        .anim-spin    { animation: spin-slow 26s linear infinite; }
+
+        /* ---------- Buttons & micro-interactions ---------- */
+        .btn {
+            position: relative; isolation: isolate; overflow: hidden;
+            transition: transform 0.35s var(--ease-spring), box-shadow 0.35s var(--ease-out);
+        }
+        .btn:hover { transform: translateY(-3px); }
+        .btn:active { transform: translateY(0) scale(0.98); }
+        .btn-sheen::after {
+            content: ''; position: absolute; inset: 0; z-index: -1;
+            background: linear-gradient(120deg, transparent 30%, rgba(255,255,255,0.45) 50%, transparent 70%);
+            transform: translateX(-120%);
+        }
+        .btn-sheen:hover::after { animation: shimmer 0.9s var(--ease-out); }
+
+        .lift { transition: transform 0.45s var(--ease-out), box-shadow 0.45s var(--ease-out), border-color 0.45s var(--ease-out); }
+        .lift:hover { transform: translateY(-8px); box-shadow: 0 28px 60px -26px rgba(33,28,23,0.35); }
+
+        /* underline nav */
+        .nav-link { position: relative; }
+        .nav-link::after {
+            content:''; position:absolute; left:0; bottom:-6px; height:2px; width:0;
+            background: linear-gradient(90deg,#F2622E,#F4A93C); border-radius:2px;
+            transition: width 0.35s var(--ease-out);
+        }
+        .nav-link:hover::after, .nav-link[aria-current="true"]::after { width:100%; }
+
+        /* ---------- Animated hamburger ---------- */
+        .burger span {
+            display:block; height:2px; width:24px; background:#211C17; border-radius:2px;
+            transition: transform 0.4s var(--ease-out), opacity 0.25s var(--ease-out);
+        }
+        .burger span + span { margin-top:6px; }
+        .burger[aria-expanded="true"] span:nth-child(1) { transform: translateY(8px) rotate(45deg); }
+        .burger[aria-expanded="true"] span:nth-child(2) { opacity:0; }
+        .burger[aria-expanded="true"] span:nth-child(3) { transform: translateY(-8px) rotate(-45deg); }
+
+        /* ---------- Mobile menu ---------- */
+        #mobile-menu { transition: opacity 0.4s var(--ease-out), visibility 0.4s; }
+        #mobile-menu[data-open="false"] { opacity:0; visibility:hidden; pointer-events:none; }
+        #mobile-menu[data-open="true"]  { opacity:1; visibility:visible; }
+        #mobile-menu a { opacity:0; transform: translateY(18px); transition: opacity 0.5s var(--ease-out), transform 0.5s var(--ease-out); }
+        #mobile-menu[data-open="true"] a { opacity:1; transform:none; }
+        #mobile-menu[data-open="true"] a:nth-child(1){transition-delay:.08s}
+        #mobile-menu[data-open="true"] a:nth-child(2){transition-delay:.14s}
+        #mobile-menu[data-open="true"] a:nth-child(3){transition-delay:.20s}
+        #mobile-menu[data-open="true"] a:nth-child(4){transition-delay:.26s}
+        #mobile-menu[data-open="true"] a:nth-child(5){transition-delay:.32s}
+
+        /* ---------- Images / media ---------- */
+        .media-zoom img { transition: transform 0.7s var(--ease-out); }
+        .media-zoom:hover img { transform: scale(1.07); }
+        .img-skeleton { background: linear-gradient(100deg,#F3E8DC 30%,#FBF5EE 50%,#F3E8DC 70%); background-size:200% 100%; animation: shimmer-bg 1.4s infinite; }
+        @keyframes shimmer-bg { to { background-position: -200% 0; } }
+        img[data-fade] { opacity:0; transition: opacity 0.7s var(--ease-out); }
+        img[data-fade].loaded { opacity:1; }
+
+        /* ---------- Forms ---------- */
+        .field {
+            background: rgba(255,255,255,0.7);
+            border: 1.5px solid rgba(33,28,23,0.10);
+            border-radius: 1rem;
+            transition: border-color 0.3s var(--ease-out), box-shadow 0.3s var(--ease-out), background 0.3s;
+        }
+        .field:focus {
+            outline:none; background:#fff; border-color:#F2622E;
+            box-shadow: 0 0 0 4px rgba(242,98,46,0.14);
         }
 
-        /* Heart beat animation */
-        @keyframes heartbeat {
-            0%, 100% { transform: scale(1); }
-            14% { transform: scale(1.1); }
-            28% { transform: scale(1); }
-            42% { transform: scale(1.1); }
-            70% { transform: scale(1); }
+        /* ---------- Accessibility ---------- */
+        .skip-link {
+            position:absolute; left:1rem; top:-4rem; z-index:100;
+            background:#211C17; color:#fff; padding:.75rem 1.25rem; border-radius:0 0 1rem 1rem;
+            transition: top 0.3s var(--ease-out); font-weight:600;
         }
-        .animate-heartbeat {
-            animation: heartbeat 1.5s ease-in-out infinite;
-        }
+        .skip-link:focus { top:0; }
+        :focus-visible { outline:3px solid #0F9E91; outline-offset:3px; border-radius:6px; }
 
-        /* Wiggle animation */
-        @keyframes wiggle {
-            0%, 100% { transform: rotate(0deg); }
-            25% { transform: rotate(-5deg); }
-            75% { transform: rotate(5deg); }
-        }
-        .animate-wiggle:hover {
-            animation: wiggle 0.5s ease-in-out;
-        }
+        /* custom scrollbar */
+        ::-webkit-scrollbar { width:11px; }
+        ::-webkit-scrollbar-track { background:#FBF5EE; }
+        ::-webkit-scrollbar-thumb { background:#E5C9B4; border-radius:10px; border:3px solid #FBF5EE; }
+        ::-webkit-scrollbar-thumb:hover { background:#F2622E; }
 
-        /* Mobile menu */
-        .mobile-menu {
-            transform: translateX(100%);
-            transition: transform 0.3s ease;
+        /* ---------- Page loader ---------- */
+        #loader {
+            position:fixed; inset:0; z-index:200; display:grid; place-items:center;
+            background:#FFFCF9; transition: opacity 0.6s var(--ease-out), visibility 0.6s;
         }
-        .mobile-menu.open {
-            transform: translateX(0);
-        }
-    </style></head>
-<body class="bg-pet-cream font-body text-gray-700 overflow-x-hidden">
+        #loader.done { opacity:0; visibility:hidden; }
+        .loader-paw { width:54px; height:54px; color:#F2622E; animation: heartbeat 1.4s ease-in-out infinite; }
 
-    <!-- Decorative floating blobs -->
-    <div class="fixed inset-0 pointer-events-none overflow-hidden z-0">
-        <div class="absolute -top-20 -left-20 w-80 h-80 bg-pet-orange/10 blob-shape animate-float-slow"></div>
-        <div class="absolute top-1/3 -right-20 w-64 h-64 bg-pet-blue/10 blob-shape-2 animate-float-delay"></div>
-        <div class="absolute bottom-20 -left-10 w-56 h-56 bg-pet-orange/10 blob-shape-3 animate-float"></div>
+        /* marquee */
+        @keyframes marquee { to { transform: translateX(-50%); } }
+        .marquee-track { animation: marquee 28s linear infinite; }
+
+        /* ---------- Reduced motion ---------- */
+        @media (prefers-reduced-motion: reduce) {
+            html { scroll-behavior:auto; }
+            *, *::before, *::after {
+                animation-duration:0.001ms !important; animation-iteration-count:1 !important;
+                transition-duration:0.001ms !important; scroll-behavior:auto !important;
+            }
+            .reveal { opacity:1 !important; transform:none !important; }
+        }
+    </style>
+</head>
+<body class="bg-cream font-body text-ink-soft antialiased overflow-x-hidden">
+
+    <!-- Skip link -->
+    <a href="#main" class="skip-link">Pular para o conteúdo</a>
+
+    <!-- Page loader -->
+    <div id="loader" aria-hidden="true">
+        <i data-lucide="paw-print" class="loader-paw"></i>
     </div>
 
-    <!-- Navigation -->
-    <nav id="navbar" class="fixed top-0 left-0 right-0 z-50 transition-all duration-500">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="flex items-center justify-between h-20">
-                <!-- Logo -->
-                <a href="#" class="flex items-center gap-3 group">
-                    <div class="w-12 h-12 bg-pet-orange rounded-full flex items-center justify-center clay-button">
-                        <i data-lucide="paw-print" class="w-6 h-6 text-white"></i>
-                    </div>
-                    <div>
-                        <h1 class="font-display font-bold text-2xl text-gray-800 group-hover:text-pet-orange transition-colors">Pet Amigo</h1>
-                        <p class="text-xs text-gray-500 -mt-1">Pet Shop & Veterinária</p>
-                    </div>
+    <!-- Decorative mesh + floating blobs -->
+    <div class="fixed inset-0 -z-10 mesh pointer-events-none"></div>
+    <div class="fixed inset-0 -z-10 overflow-hidden pointer-events-none" aria-hidden="true">
+        <div data-parallax="0.18" class="absolute -top-24 -left-24 w-[28rem] h-[28rem] rounded-full bg-brand/10 blur-3xl anim-float"></div>
+        <div data-parallax="0.10" class="absolute top-1/3 -right-32 w-[26rem] h-[26rem] rounded-full bg-teal/10 blur-3xl anim-float-2"></div>
+        <div data-parallax="0.22" class="absolute bottom-0 left-1/4 w-[22rem] h-[22rem] rounded-full bg-gold/10 blur-3xl anim-float-sm"></div>
+    </div>
+
+    <!-- ============ NAVBAR ============ -->
+    <header id="navbar" class="fixed top-0 inset-x-0 z-50 transition-all duration-500">
+        <nav class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8" aria-label="Navegação principal">
+            <div id="nav-inner" class="flex items-center justify-between h-20 transition-all duration-500">
+                <a href="#" class="flex items-center gap-3 group" aria-label="Pet Amigo — página inicial">
+                    <span class="relative grid place-items-center w-11 h-11 rounded-2xl bg-gradient-to-br from-brand to-brand-light text-white shadow-glow transition-transform duration-500 group-hover:rotate-6">
+                        <i data-lucide="paw-print" class="w-5 h-5"></i>
+                    </span>
+                    <span class="leading-tight">
+                        <span class="block font-display font-extrabold text-xl text-ink">Pet Amigo</span>
+                        <span class="block text-[0.7rem] tracking-[0.18em] uppercase text-ink-faint">Pet Shop · Vet 24h</span>
+                    </span>
                 </a>
 
-                <!-- Desktop Menu -->
-                <div class="hidden md:flex items-center gap-8">
-                    <a href="#servicos" class="nav-link font-display font-semibold text-gray-700 hover:text-pet-orange transition-colors">Serviços</a>
-                    <a href="#produtos" class="nav-link font-display font-semibold text-gray-700 hover:text-pet-orange transition-colors">Produtos</a>
-                    <a href="#galeria" class="nav-link font-display font-semibold text-gray-700 hover:text-pet-orange transition-colors">Galeria</a>
-                    <a href="#agendamento" class="clay-button bg-pet-orange text-white font-display font-bold px-6 py-2.5 hover:bg-pet-orange-dark inline-flex items-center gap-2">
-                        <i data-lucide="calendar-check" class="w-4 h-4"></i>
-                        Agendar
+                <div class="hidden lg:flex items-center gap-9">
+                    <a href="#servicos" class="nav-link font-display font-semibold text-sm text-ink hover:text-brand transition-colors">Serviços</a>
+                    <a href="#produtos" class="nav-link font-display font-semibold text-sm text-ink hover:text-brand transition-colors">Produtos</a>
+                    <a href="#galeria" class="nav-link font-display font-semibold text-sm text-ink hover:text-brand transition-colors">Galeria</a>
+                    <a href="#depoimentos" class="nav-link font-display font-semibold text-sm text-ink hover:text-brand transition-colors">Depoimentos</a>
+                </div>
+
+                <div class="hidden lg:block">
+                    <a href="#agendamento" class="btn btn-sheen inline-flex items-center gap-2 rounded-full bg-ink text-cream font-display font-semibold text-sm px-6 py-3 shadow-soft hover:shadow-card">
+                        <i data-lucide="calendar-check" class="w-4 h-4"></i> Agendar visita
                     </a>
                 </div>
 
-                <!-- Mobile Menu Button -->
-                <button id="mobile-menu-btn" class="md:hidden w-10 h-10 flex items-center justify-center clay-button bg-white">
-                    <i data-lucide="menu" class="w-5 h-5 text-gray-700"></i>
+                <button id="burger" class="burger lg:hidden grid place-items-center w-11 h-11 rounded-xl glass-strong shadow-soft" aria-expanded="false" aria-controls="mobile-menu" aria-label="Abrir menu">
+                    <span></span><span></span><span></span>
                 </button>
             </div>
-        </div>
-    </nav>
+        </nav>
+    </header>
 
-    <!-- Mobile Menu Overlay -->
-    <div id="mobile-menu" class="mobile-menu fixed inset-0 z-50 bg-pet-cream/95 backdrop-blur-lg flex flex-col items-center justify-center gap-8 md:hidden">
-        <button id="mobile-menu-close" class="absolute top-6 right-6 w-10 h-10 flex items-center justify-center clay-button bg-white">
-            <i data-lucide="x" class="w-5 h-5 text-gray-700"></i>
-        </button>
-        <a href="#servicos" class="mobile-link font-display font-bold text-2xl text-gray-800 hover:text-pet-orange transition-colors">Serviços</a>
-        <a href="#produtos" class="mobile-link font-display font-bold text-2xl text-gray-800 hover:text-pet-orange transition-colors">Produtos</a>
-        <a href="#galeria" class="mobile-link font-display font-bold text-2xl text-gray-800 hover:text-pet-orange transition-colors">Galeria</a>
-        <a href="#agendamento" class="mobile-link font-display font-bold text-2xl text-gray-800 hover:text-pet-orange transition-colors">Agendamento</a>
+    <!-- Mobile menu -->
+    <div id="mobile-menu" data-open="false" class="fixed inset-0 z-40 lg:hidden glass-strong flex flex-col items-center justify-center gap-7" role="dialog" aria-modal="true" aria-label="Menu de navegação">
+        <a href="#servicos" class="font-display font-bold text-3xl text-ink hover:text-brand transition-colors">Serviços</a>
+        <a href="#produtos" class="font-display font-bold text-3xl text-ink hover:text-brand transition-colors">Produtos</a>
+        <a href="#galeria" class="font-display font-bold text-3xl text-ink hover:text-brand transition-colors">Galeria</a>
+        <a href="#depoimentos" class="font-display font-bold text-3xl text-ink hover:text-brand transition-colors">Depoimentos</a>
+        <a href="#agendamento" class="btn inline-flex items-center gap-2 rounded-full bg-brand text-white font-display font-bold text-lg px-8 py-4 shadow-glow mt-2">
+            <i data-lucide="calendar-check" class="w-5 h-5"></i> Agendar visita
+        </a>
     </div>
 
-    <!-- Hero Section -->
-    <section class="relative min-h-screen flex items-center pt-20 overflow-hidden">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full">
-            <div class="grid lg:grid-cols-2 gap-12 items-center">
-                <!-- Hero Content -->
-                <div class="relative z-10">
-                    <div class="inline-flex items-center gap-2 bg-white/80 backdrop-blur-sm clay-card px-4 py-2 mb-6">
-                        <i data-lucide="map-pin" class="w-4 h-4 text-pet-orange"></i>
-                        <span class="font-display font-semibold text-sm text-gray-700">Bragança Paulista, SP</span>
-                    </div>
+    <main id="main">
 
-                    <h1 class="font-display font-extrabold text-5xl sm:text-6xl lg:text-7xl text-gray-800 leading-tight mb-6">
-                        Seu pet merece o
-                        <span class="relative inline-block">
-                            <span class="text-pet-orange">melhor</span>
-                            <svg class="absolute -bottom-2 left-0 w-full" viewBox="0 0 200 12" fill="none">
-                                <path d="M2 8C40 2 80 2 100 8C120 14 160 14 198 8" stroke="#F97316" stroke-width="4" stroke-linecap="round"/>
-                            </svg>
+    <!-- ============ HERO ============ -->
+    <section class="relative pt-32 lg:pt-40 pb-20 lg:pb-28 overflow-hidden">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid lg:grid-cols-12 gap-12 lg:gap-8 items-center">
+                <!-- Copy -->
+                <div class="lg:col-span-6 relative z-10">
+                    <span class="reveal inline-flex items-center gap-2 glass rounded-full px-4 py-2 shadow-soft mb-7">
+                        <span class="relative flex h-2.5 w-2.5">
+                            <span class="absolute inline-flex h-full w-full rounded-full bg-teal opacity-70 animate-ping"></span>
+                            <span class="relative inline-flex rounded-full h-2.5 w-2.5 bg-teal"></span>
                         </span>
-                        cuidado!
+                        <span class="font-display font-semibold text-xs tracking-wide text-ink">Bragança Paulista · Atendimento 24 horas</span>
+                    </span>
+
+                    <h1 class="reveal fluid-hero font-display font-extrabold text-ink mb-6" style="--reveal-delay:80ms">
+                        Cuidado que seu<br>
+                        melhor amigo<br>
+                        <span class="text-gradient">sente de verdade.</span>
                     </h1>
 
-                    <p class="text-lg sm:text-xl text-gray-600 mb-8 leading-relaxed max-w-lg">
-                        No <strong class="text-pet-orange">Pet Amigo</strong>, tratamos seu pet como família. 
-                        Banho, tosa, veterinária 24h, hotelzinho e os melhores produtos para seu melhor amigo.
+                    <p class="reveal fluid-lead text-ink-soft max-w-xl mb-9" style="--reveal-delay:160ms">
+                        Banho &amp; tosa de assinatura, veterinária 24h, hotel e uma curadoria de produtos premium —
+                        tudo num só lugar, conduzido por uma equipe que trata cada pet como família.
                     </p>
 
-                    <div class="flex flex-wrap gap-4">
-                        <a href="#agendamento" class="clay-button bg-pet-orange text-white font-display font-bold text-lg px-8 py-4 hover:bg-pet-orange-dark inline-flex items-center gap-3 animate-wiggle">
-                            <i data-lucide="calendar-check" class="w-5 h-5"></i>
-                            Agendar Agora
+                    <div class="reveal flex flex-wrap items-center gap-4 mb-12" style="--reveal-delay:240ms">
+                        <a href="#agendamento" class="btn btn-sheen inline-flex items-center gap-2.5 rounded-full bg-brand text-white font-display font-semibold px-8 py-4 shadow-glow">
+                            <i data-lucide="calendar-heart" class="w-5 h-5"></i> Agendar agora
                         </a>
-                        <a href="#servicos" class="clay-button bg-white text-pet-orange font-display font-bold text-lg px-8 py-4 hover:bg-pet-cream border-pet-orange/30 inline-flex items-center gap-3">
-                            <i data-lucide="sparkles" class="w-5 h-5"></i>
-                            Nossos Serviços
+                        <a href="#servicos" class="btn inline-flex items-center gap-2.5 rounded-full glass-strong text-ink font-display font-semibold px-8 py-4 shadow-soft hover:text-brand">
+                            <i data-lucide="sparkles" class="w-5 h-5 text-brand"></i> Explorar serviços
                         </a>
                     </div>
 
-                    <!-- Stats -->
-                    <div class="flex flex-wrap gap-8 mt-12">
+                    <dl class="reveal grid grid-cols-3 gap-6 max-w-lg" style="--reveal-delay:320ms">
                         <div>
-                            <div class="font-display font-bold text-3xl text-pet-orange">+10k</div>
-                            <div class="text-sm text-gray-500 font-display">Pets Atendidos</div>
+                            <dt class="font-display font-extrabold text-3xl text-ink" data-count="10000" data-suffix="+">0</dt>
+                            <dd class="text-xs uppercase tracking-wide text-ink-faint mt-1">Pets atendidos</dd>
+                        </div>
+                        <div class="border-x border-ink/10 px-6">
+                            <dt class="font-display font-extrabold text-3xl text-ink" data-count="15" data-suffix=" anos">0</dt>
+                            <dd class="text-xs uppercase tracking-wide text-ink-faint mt-1">De experiência</dd>
                         </div>
                         <div>
-                            <div class="font-display font-bold text-3xl text-pet-blue">15+</div>
-                            <div class="text-sm text-gray-500 font-display">Anos de Experiência</div>
+                            <dt class="font-display font-extrabold text-3xl text-ink">4.9<span class="text-gold">★</span></dt>
+                            <dd class="text-xs uppercase tracking-wide text-ink-faint mt-1">Avaliação média</dd>
                         </div>
-                        <div>
-                            <div class="font-display font-bold text-3xl text-pet-orange">24h</div>
-                            <div class="text-sm text-gray-500 font-display">Veterinária</div>
-                        </div>
-                    </div>
+                    </dl>
                 </div>
 
-                <!-- Hero Image -->
-                <div class="relative">
-                    <!-- Main Image Container -->
-                    <div class="relative">
-                        <div class="clay-card overflow-hidden aspect-square max-w-lg mx-auto">
-                            <img src="https://images.unsplash.com/photo-1450778869180-41d0601e046e?w=800&h=800&fit=crop&crop=center" 
-                                 alt="Cachorro e gato felizes juntos" 
-                                 class="w-full h-full object-cover">
+                <!-- Visual -->
+                <div class="lg:col-span-6 relative">
+                    <div class="reveal relative max-w-xl mx-auto" data-reveal="zoom" style="--reveal-delay:120ms">
+                        <div class="absolute -inset-4 bg-gradient-to-tr from-brand/20 via-transparent to-teal/20 blur-2xl rounded-[3rem]" aria-hidden="true"></div>
+                        <div class="media-zoom relative overflow-hidden rounded-[2.5rem] shadow-card border border-white/60">
+                            <img src="https://images.unsplash.com/photo-1450778869180-41d0601e046e?w=900&h=900&fit=crop&crop=center"
+                                 alt="Cachorro e gato felizes lado a lado" width="900" height="900"
+                                 fetchpriority="high" decoding="async"
+                                 class="w-full aspect-square object-cover">
                         </div>
 
-                        <!-- Floating badges -->
-                        <div class="absolute -top-4 -right-4 sm:right-8 clay-card bg-white p-4 animate-float">
+                        <!-- floating glass cards -->
+                        <div data-parallax="0.12" class="absolute -top-5 -right-3 sm:-right-8 glass-strong rounded-2xl p-4 shadow-card anim-float">
                             <div class="flex items-center gap-3">
-                                <div class="w-10 h-10 bg-green-100 rounded-full flex items-center justify-center">
-                                    <i data-lucide="heart" class="w-5 h-5 text-green-500 animate-heartbeat"></i>
-                                </div>
-                                <div>
-                                    <div class="font-display font-bold text-sm text-gray-800">Amor Garantido</div>
-                                    <div class="text-xs text-gray-500">100% de carinho</div>
-                                </div>
+                                <span class="grid place-items-center w-10 h-10 rounded-xl bg-teal-tint text-teal"><i data-lucide="shield-check" class="w-5 h-5"></i></span>
+                                <span class="leading-tight"><span class="block font-display font-bold text-sm text-ink">Vet 24h</span><span class="block text-xs text-ink-faint">Plantão todo dia</span></span>
                             </div>
                         </div>
-
-                        <div class="absolute -bottom-4 -left-4 sm:left-0 clay-card bg-white p-4 animate-float-delay">
+                        <div data-parallax="0.2" class="absolute -bottom-6 -left-3 sm:-left-8 glass-strong rounded-2xl p-4 shadow-card anim-float-2">
                             <div class="flex items-center gap-3">
-                                <div class="w-10 h-10 bg-pet-blue/10 rounded-full flex items-center justify-center">
-                                    <i data-lucide="shield-check" class="w-5 h-5 text-pet-blue"></i>
-                                </div>
-                                <div>
-                                    <div class="font-display font-bold text-sm text-gray-800">Vet 24 Horas</div>
-                                    <div class="text-xs text-gray-500">Sempre protegido</div>
-                                </div>
+                                <span class="grid place-items-center w-10 h-10 rounded-xl bg-brand-tint text-brand"><i data-lucide="heart" class="w-5 h-5 anim-heart"></i></span>
+                                <span class="leading-tight"><span class="block font-display font-bold text-sm text-ink">Amor garantido</span><span class="block text-xs text-ink-faint">100% de carinho</span></span>
                             </div>
                         </div>
-
-                        <div class="absolute top-1/2 -right-4 sm:-right-8 clay-card bg-pet-orange text-white p-3 animate-float-slow">
-                            <div class="flex items-center gap-2">
-                                <i data-lucide="star" class="w-4 h-4 fill-current"></i>
-                                <span class="font-display font-bold text-sm">4.9/5</span>
-                            </div>
+                        <div data-parallax="0.16" class="absolute top-1/2 -right-4 sm:-right-10 -translate-y-1/2 glass-strong rounded-full px-4 py-2 shadow-card anim-float-sm">
+                            <span class="inline-flex items-center gap-1.5 font-display font-bold text-sm text-ink"><i data-lucide="star" class="w-4 h-4 text-gold fill-gold"></i> 4.9</span>
                         </div>
                     </div>
                 </div>
             </div>
-        </div>
-
-        <!-- Scroll indicator -->
-        <div class="absolute bottom-8 left-1/2 -translate-x-1/2 animate-bounce">
-            <a href="#servicos" class="flex flex-col items-center gap-2 text-gray-400 hover:text-pet-orange transition-colors">
-                <span class="text-xs font-display font-semibold">Conheça mais</span>
-                <i data-lucide="chevron-down" class="w-5 h-5"></i>
-            </a>
         </div>
     </section>
 
-    <!-- Serviços Section -->
-    <section id="servicos" class="py-20 relative">
+    <!-- ============ TRUST MARQUEE ============ -->
+    <section class="py-8 border-y border-ink/5 overflow-hidden" aria-label="Diferenciais">
+        <div class="relative flex">
+            <div class="marquee-track flex shrink-0 items-center gap-12 pr-12 text-ink-faint font-display font-semibold whitespace-nowrap">
+                <span class="inline-flex items-center gap-2"><i data-lucide="syringe" class="w-4 h-4 text-brand"></i> Vacinação &amp; exames</span>
+                <span class="inline-flex items-center gap-2"><i data-lucide="bath" class="w-4 h-4 text-teal"></i> Banho &amp; tosa premium</span>
+                <span class="inline-flex items-center gap-2"><i data-lucide="bed-double" class="w-4 h-4 text-brand"></i> Hotelzinho monitorado</span>
+                <span class="inline-flex items-center gap-2"><i data-lucide="graduation-cap" class="w-4 h-4 text-teal"></i> Adestramento positivo</span>
+                <span class="inline-flex items-center gap-2"><i data-lucide="truck" class="w-4 h-4 text-brand"></i> Leva &amp; traz</span>
+                <span class="inline-flex items-center gap-2"><i data-lucide="stethoscope" class="w-4 h-4 text-teal"></i> Veterinária 24h</span>
+            </div>
+            <div class="marquee-track flex shrink-0 items-center gap-12 pr-12 text-ink-faint font-display font-semibold whitespace-nowrap" aria-hidden="true">
+                <span class="inline-flex items-center gap-2"><i data-lucide="syringe" class="w-4 h-4 text-brand"></i> Vacinação &amp; exames</span>
+                <span class="inline-flex items-center gap-2"><i data-lucide="bath" class="w-4 h-4 text-teal"></i> Banho &amp; tosa premium</span>
+                <span class="inline-flex items-center gap-2"><i data-lucide="bed-double" class="w-4 h-4 text-brand"></i> Hotelzinho monitorado</span>
+                <span class="inline-flex items-center gap-2"><i data-lucide="graduation-cap" class="w-4 h-4 text-teal"></i> Adestramento positivo</span>
+                <span class="inline-flex items-center gap-2"><i data-lucide="truck" class="w-4 h-4 text-brand"></i> Leva &amp; traz</span>
+                <span class="inline-flex items-center gap-2"><i data-lucide="stethoscope" class="w-4 h-4 text-teal"></i> Veterinária 24h</span>
+            </div>
+        </div>
+    </section>
+
+    <!-- ============ SERVIÇOS ============ -->
+    <section id="servicos" class="py-24 lg:py-32 relative">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <!-- Section Header -->
-            <div class="text-center mb-16">
-                <div class="inline-flex items-center gap-2 bg-pet-orange/10 clay-card px-4 py-2 mb-4">
-                    <i data-lucide="sparkles" class="w-4 h-4 text-pet-orange"></i>
-                    <span class="font-display font-semibold text-sm text-pet-orange">Nossos Serviços</span>
-                </div>
-                <h2 class="font-display font-extrabold text-4xl sm:text-5xl text-gray-800 mb-4">
-                    Tudo que seu pet
-                    <span class="text-pet-orange">precisa</span>
-                </h2>
-                <p class="text-lg text-gray-600 max-w-2xl mx-auto">
-                    Oferecemos uma linha completa de serviços para manter seu pet saudável, feliz e lindo!
-                </p>
+            <div class="max-w-2xl mb-16">
+                <span class="reveal inline-flex items-center gap-2 text-brand font-display font-semibold text-sm tracking-wide uppercase mb-4"><i data-lucide="sparkles" class="w-4 h-4"></i> Nossos serviços</span>
+                <h2 class="reveal fluid-h2 font-display font-extrabold text-ink mb-5" style="--reveal-delay:80ms">Tudo o que seu pet precisa, com <span class="text-gradient">padrão de excelência</span>.</h2>
+                <p class="reveal fluid-lead text-ink-soft" style="--reveal-delay:160ms">Uma estrutura completa pensada para o bem-estar físico e emocional do seu companheiro — do banho ao plantão veterinário.</p>
             </div>
 
-            <!-- Services Grid -->
-            <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-8">
-                <!-- Banho & Tosa -->
-                <div class="clay-card bg-white p-6 sm:p-8 group">
-                    <div class="service-icon-bg w-16 h-16 rounded-2xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform">
-                        <i data-lucide="droplets" class="w-8 h-8 text-pet-orange"></i>
-                    </div>
-                    <h3 class="font-display font-bold text-xl text-gray-800 mb-3">Banho & Tosa</h3>
-                    <p class="text-gray-600 mb-6">
-                        Banho completo com produtos de alta qualidade e tosa profissional no estilo que seu pet merece.
-                    </p>
-                    <div class="flex items-center gap-2 text-pet-orange font-display font-semibold text-sm">
-                        <span>A partir de R$ 45</span>
-                        <i data-lucide="arrow-right" class="w-4 h-4 group-hover:translate-x-1 transition-transform"></i>
-                    </div>
-                </div>
-
-                <!-- Veterinária -->
-                <div class="clay-card bg-white p-6 sm:p-8 group">
-                    <div class="service-icon-bg w-16 h-16 rounded-2xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform">
-                        <i data-lucide="stethoscope" class="w-8 h-8 text-pet-blue"></i>
-                    </div>
-                    <h3 class="font-display font-bold text-xl text-gray-800 mb-3">Veterinária 24h</h3>
-                    <p class="text-gray-600 mb-6">
-                        Plantão veterinário 24 horas, vacinas, exames e cuidados médicos completos para seu pet.
-                    </p>
-                    <div class="flex items-center gap-2 text-pet-blue font-display font-semibold text-sm">
-                        <span>Emergência 24h</span>
-                        <i data-lucide="arrow-right" class="w-4 h-4 group-hover:translate-x-1 transition-transform"></i>
-                    </div>
-                </div>
-
-                <!-- Hotelzinho -->
-                <div class="clay-card bg-white p-6 sm:p-8 group">
-                    <div class="service-icon-bg w-16 h-16 rounded-2xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform">
-                        <i data-lucide="home" class="w-8 h-8 text-pet-orange"></i>
-                    </div>
-                    <h3 class="font-display font-bold text-xl text-gray-800 mb-3">Hotelzinho</h3>
-                    <p class="text-gray-600 mb-6">
-                        Hospedagem com muito carinho, espaço para brincadeiras e monitoramento constante enquanto você viaja.
-                    </p>
-                    <div class="flex items-center gap-2 text-pet-orange font-display font-semibold text-sm">
-                        <span>Diária a partir de R$ 80</span>
-                        <i data-lucide="arrow-right" class="w-4 h-4 group-hover:translate-x-1 transition-transform"></i>
-                    </div>
-                </div>
-
-                <!-- Adestramento -->
-                <div class="clay-card bg-white p-6 sm:p-8 group">
-                    <div class="service-icon-bg w-16 h-16 rounded-2xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform">
-                        <i data-lucide="graduation-cap" class="w-8 h-8 text-pet-blue"></i>
-                    </div>
-                    <h3 class="font-display font-bold text-xl text-gray-800 mb-3">Adestramento</h3>
-                    <p class="text-gray-600 mb-6">
-                        Treinamento positivo com profissionais certificados. Comandos básicos, socialização e correção de comportamentos.
-                    </p>
-                    <div class="flex items-center gap-2 text-pet-blue font-display font-semibold text-sm">
-                        <span>Aulas semanais</span>
-                        <i data-lucide="arrow-right" class="w-4 h-4 group-hover:translate-x-1 transition-transform"></i>
-                    </div>
-                </div>
+            <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-6" data-stagger>
+                <!-- card -->
+                <article class="reveal lift group glass rounded-4xl p-8 shadow-soft border border-white/60">
+                    <span class="grid place-items-center w-14 h-14 rounded-2xl bg-brand-tint text-brand mb-6 transition-transform duration-500 group-hover:-rotate-6 group-hover:scale-110"><i data-lucide="droplets" class="w-7 h-7"></i></span>
+                    <h3 class="font-display font-bold text-xl text-ink mb-2">Banho &amp; Tosa</h3>
+                    <p class="text-sm leading-relaxed mb-6">Produtos hipoalergênicos, secagem cuidadosa e tosa no estilo da raça. Seu pet sai macio, cheiroso e radiante.</p>
+                    <span class="inline-flex items-center gap-2 font-display font-semibold text-sm text-brand">A partir de R$ 45 <i data-lucide="arrow-right" class="w-4 h-4 transition-transform group-hover:translate-x-1"></i></span>
+                </article>
+                <article class="reveal lift group glass rounded-4xl p-8 shadow-soft border border-white/60">
+                    <span class="grid place-items-center w-14 h-14 rounded-2xl bg-teal-tint text-teal mb-6 transition-transform duration-500 group-hover:-rotate-6 group-hover:scale-110"><i data-lucide="stethoscope" class="w-7 h-7"></i></span>
+                    <h3 class="font-display font-bold text-xl text-ink mb-2">Veterinária 24h</h3>
+                    <p class="text-sm leading-relaxed mb-6">Plantão 24 horas, vacinas, exames laboratoriais e cirurgias com equipe especializada e equipamentos modernos.</p>
+                    <span class="inline-flex items-center gap-2 font-display font-semibold text-sm text-teal">Emergência 24h <i data-lucide="arrow-right" class="w-4 h-4 transition-transform group-hover:translate-x-1"></i></span>
+                </article>
+                <article class="reveal lift group glass rounded-4xl p-8 shadow-soft border border-white/60">
+                    <span class="grid place-items-center w-14 h-14 rounded-2xl bg-brand-tint text-brand mb-6 transition-transform duration-500 group-hover:-rotate-6 group-hover:scale-110"><i data-lucide="bed-double" class="w-7 h-7"></i></span>
+                    <h3 class="font-display font-bold text-xl text-ink mb-2">Hotelzinho</h3>
+                    <p class="text-sm leading-relaxed mb-6">Hospedagem climatizada, área de recreação e monitoramento por câmeras. Você viaja tranquilo, recebendo fotos diárias.</p>
+                    <span class="inline-flex items-center gap-2 font-display font-semibold text-sm text-brand">Diária desde R$ 80 <i data-lucide="arrow-right" class="w-4 h-4 transition-transform group-hover:translate-x-1"></i></span>
+                </article>
+                <article class="reveal lift group glass rounded-4xl p-8 shadow-soft border border-white/60">
+                    <span class="grid place-items-center w-14 h-14 rounded-2xl bg-teal-tint text-teal mb-6 transition-transform duration-500 group-hover:-rotate-6 group-hover:scale-110"><i data-lucide="graduation-cap" class="w-7 h-7"></i></span>
+                    <h3 class="font-display font-bold text-xl text-ink mb-2">Adestramento</h3>
+                    <p class="text-sm leading-relaxed mb-6">Reforço positivo com profissionais certificados: comandos, socialização e correção gentil de comportamentos.</p>
+                    <span class="inline-flex items-center gap-2 font-display font-semibold text-sm text-teal">Aulas semanais <i data-lucide="arrow-right" class="w-4 h-4 transition-transform group-hover:translate-x-1"></i></span>
+                </article>
             </div>
 
-            <!-- CTA Banner -->
-            <div class="mt-16 clay-section bg-gradient-to-r from-pet-orange to-pet-orange-light p-8 sm:p-12 text-center">
-                <div class="flex flex-col sm:flex-row items-center justify-center gap-6">
-                    <div class="text-white">
-                        <h3 class="font-display font-bold text-2xl sm:text-3xl mb-2">Primeiro banho grátis!</h3>
-                        <p class="text-white/90">Agende agora e ganhe o primeiro banho do seu pet sem custo.</p>
+            <!-- CTA banner -->
+            <div class="reveal relative mt-12 overflow-hidden rounded-5xl p-10 sm:p-14 text-white shadow-glow" data-reveal="zoom">
+                <div class="absolute inset-0 -z-10 bg-gradient-to-br from-brand via-brand to-brand-dark"></div>
+                <div class="absolute -top-16 -right-10 w-64 h-64 rounded-full bg-white/10 blur-2xl anim-float" aria-hidden="true"></div>
+                <i data-lucide="paw-print" class="absolute right-8 bottom-4 w-40 h-40 text-white/10 anim-spin" aria-hidden="true"></i>
+                <div class="relative flex flex-col sm:flex-row items-center justify-between gap-8">
+                    <div class="text-center sm:text-left max-w-xl">
+                        <span class="inline-flex items-center gap-2 bg-white/15 rounded-full px-3 py-1 text-xs font-display font-semibold mb-3"><i data-lucide="gift" class="w-3.5 h-3.5"></i> Oferta de boas-vindas</span>
+                        <h3 class="font-display font-extrabold text-2xl sm:text-3xl mb-2">O primeiro banho é por nossa conta.</h3>
+                        <p class="text-white/85">Agende a primeira visita e ganhe um banho completo gratuito para conhecer o padrão Pet Amigo.</p>
                     </div>
-                    <a href="#agendamento" class="clay-button bg-white text-pet-orange font-display font-bold px-8 py-4 hover:bg-pet-cream shrink-0 inline-flex items-center gap-2">
-                        <i data-lucide="gift" class="w-5 h-5"></i>
-                        Quero Aproveitar
+                    <a href="#agendamento" class="btn btn-sheen shrink-0 inline-flex items-center gap-2 rounded-full bg-white text-brand font-display font-bold px-8 py-4 shadow-card">
+                        <i data-lucide="calendar-check" class="w-5 h-5"></i> Quero aproveitar
                     </a>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- Produtos Section -->
-    <section id="produtos" class="py-20 relative">
+    <!-- ============ PRODUTOS ============ -->
+    <section id="produtos" class="py-24 lg:py-32 relative">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="text-center mb-16">
-                <div class="inline-flex items-center gap-2 bg-pet-blue/10 clay-card px-4 py-2 mb-4">
-                    <i data-lucide="shopping-bag" class="w-4 h-4 text-pet-blue"></i>
-                    <span class="font-display font-semibold text-sm text-pet-blue">Nossos Produtos</span>
+            <div class="flex flex-col md:flex-row md:items-end md:justify-between gap-6 mb-16">
+                <div class="max-w-2xl">
+                    <span class="reveal inline-flex items-center gap-2 text-teal font-display font-semibold text-sm tracking-wide uppercase mb-4"><i data-lucide="shopping-bag" class="w-4 h-4"></i> Curadoria de produtos</span>
+                    <h2 class="reveal fluid-h2 font-display font-extrabold text-ink" style="--reveal-delay:80ms">Qualidade premium para o seu <span class="text-gradient">melhor amigo</span>.</h2>
                 </div>
-                <h2 class="font-display font-extrabold text-4xl sm:text-5xl text-gray-800 mb-4">
-                    Qualidade para seu
-                    <span class="text-pet-blue">melhor amigo</span>
-                </h2>
-                <p class="text-lg text-gray-600 max-w-2xl mx-auto">
-                    Rações premium, petiscos naturais, brinquedos, acessórios e muito mais para o bem-estar do seu pet.
-                </p>
+                <p class="reveal max-w-sm text-ink-soft" style="--reveal-delay:160ms">Rações super premium, petiscos naturais, brinquedos inteligentes e acessórios selecionados pela nossa equipe.</p>
             </div>
 
-            <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-8">
-                <!-- Product 1 -->
-                <div class="clay-card bg-white overflow-hidden group">
-                    <div class="aspect-[4/3] overflow-hidden">
-                        <img src="https://images.pexels.com/photos/1108099/pexels-photo-1108099.jpeg?auto=compress&cs=tinysrgb&w=600" 
-                             alt="Ração premium para cães" 
-                             class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500">
+            <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-7" data-stagger>
+                <!-- product -->
+                <article class="reveal lift group glass rounded-4xl overflow-hidden shadow-soft border border-white/60">
+                    <div class="media-zoom relative aspect-[4/3] overflow-hidden">
+                        <span class="absolute top-4 left-4 z-10 bg-brand text-white text-xs font-display font-bold px-3 py-1.5 rounded-full shadow-soft">Mais vendido</span>
+                        <img data-fade loading="lazy" decoding="async" width="600" height="450" src="https://images.pexels.com/photos/1108099/pexels-photo-1108099.jpeg?auto=compress&cs=tinysrgb&w=600" alt="Ração super premium para cães" class="w-full h-full object-cover">
                     </div>
                     <div class="p-6">
-                        <div class="flex items-center gap-2 mb-2">
-                            <span class="bg-pet-orange/10 text-pet-orange text-xs font-display font-bold px-2 py-1 rounded-full">Mais Vendido</span>
-                        </div>
-                        <h3 class="font-display font-bold text-lg text-gray-800 mb-2">Ração Super Premium</h3>
-                        <p class="text-gray-600 text-sm mb-4">Ração de alta qualidade com ingredientes naturais para cães adultos.</p>
+                        <h3 class="font-display font-bold text-lg text-ink mb-1.5">Ração Super Premium</h3>
+                        <p class="text-sm mb-5">Ingredientes naturais e proteína de alto valor biológico para cães adultos.</p>
                         <div class="flex items-center justify-between">
-                            <span class="font-display font-bold text-xl text-pet-orange">R$ 189,90</span>
-                            <button class="clay-button bg-pet-orange text-white p-3 hover:bg-pet-orange-dark">
-                                <i data-lucide="shopping-cart" class="w-4 h-4"></i>
-                            </button>
+                            <span class="font-display font-extrabold text-xl text-ink">R$ 189,90</span>
+                            <button class="btn grid place-items-center w-11 h-11 rounded-xl bg-ink text-cream hover:bg-brand transition-colors" aria-label="Adicionar Ração Super Premium ao carrinho"><i data-lucide="shopping-cart" class="w-4 h-4"></i></button>
                         </div>
                     </div>
+                </article>
+                <article class="reveal lift group glass rounded-4xl overflow-hidden shadow-soft border border-white/60">
+                    <div class="media-zoom relative aspect-[4/3] overflow-hidden">
+                        <span class="absolute top-4 left-4 z-10 bg-teal text-white text-xs font-display font-bold px-3 py-1.5 rounded-full shadow-soft">Novo</span>
+                        <img data-fade loading="lazy" decoding="async" width="600" height="450" src="https://images.pexels.com/photos/58997/pexels-photo-58997.jpeg?auto=compress&cs=tinysrgb&w=600" alt="Kit de brinquedos interativos para pets" class="w-full h-full object-cover">
+                    </div>
+                    <div class="p-6">
+                        <h3 class="font-display font-bold text-lg text-ink mb-1.5">Kit Brinquedos Interativos</h3>
+                        <p class="text-sm mb-5">Estimulam a inteligência e mantêm o pet entretido por horas com segurança.</p>
+                        <div class="flex items-center justify-between">
+                            <span class="font-display font-extrabold text-xl text-ink">R$ 59,90</span>
+                            <button class="btn grid place-items-center w-11 h-11 rounded-xl bg-ink text-cream hover:bg-brand transition-colors" aria-label="Adicionar Kit Brinquedos Interativos ao carrinho"><i data-lucide="shopping-cart" class="w-4 h-4"></i></button>
+                        </div>
+                    </div>
+                </article>
+                <article class="reveal lift group glass rounded-4xl overflow-hidden shadow-soft border border-white/60">
+                    <div class="media-zoom relative aspect-[4/3] overflow-hidden">
+                        <span class="absolute top-4 left-4 z-10 bg-gold text-ink text-xs font-display font-bold px-3 py-1.5 rounded-full shadow-soft">Conforto</span>
+                        <img data-fade loading="lazy" decoding="async" width="600" height="450" src="https://images.unsplash.com/photo-1601758228041-f3b2795255f1?w=600&h=450&fit=crop&crop=center" alt="Cama ortopédica confortável para pets" class="w-full h-full object-cover">
+                    </div>
+                    <div class="p-6">
+                        <h3 class="font-display font-bold text-lg text-ink mb-1.5">Cama Ortopédica Premium</h3>
+                        <p class="text-sm mb-5">Espuma viscoelástica que distribui o peso e cuida das articulações.</p>
+                        <div class="flex items-center justify-between">
+                            <span class="font-display font-extrabold text-xl text-ink">R$ 249,90</span>
+                            <button class="btn grid place-items-center w-11 h-11 rounded-xl bg-ink text-cream hover:bg-brand transition-colors" aria-label="Adicionar Cama Ortopédica Premium ao carrinho"><i data-lucide="shopping-cart" class="w-4 h-4"></i></button>
+                        </div>
+                    </div>
+                </article>
+                <article class="reveal lift group glass rounded-4xl overflow-hidden shadow-soft border border-white/60">
+                    <div class="media-zoom relative aspect-[4/3] overflow-hidden">
+                        <span class="absolute top-4 left-4 z-10 bg-teal text-white text-xs font-display font-bold px-3 py-1.5 rounded-full shadow-soft">Natural</span>
+                        <img data-fade loading="lazy" decoding="async" width="600" height="450" src="https://images.unsplash.com/photo-1516734212186-a967f81ad0d7?w=600&h=450&fit=crop&crop=center" alt="Petiscos naturais para pets" class="w-full h-full object-cover">
+                    </div>
+                    <div class="p-6">
+                        <h3 class="font-display font-bold text-lg text-ink mb-1.5">Petiscos Naturais</h3>
+                        <p class="text-sm mb-5">100% naturais, sem conservantes artificiais. Recompensa saudável no treino.</p>
+                        <div class="flex items-center justify-between">
+                            <span class="font-display font-extrabold text-xl text-ink">R$ 29,90</span>
+                            <button class="btn grid place-items-center w-11 h-11 rounded-xl bg-ink text-cream hover:bg-brand transition-colors" aria-label="Adicionar Petiscos Naturais ao carrinho"><i data-lucide="shopping-cart" class="w-4 h-4"></i></button>
+                        </div>
+                    </div>
+                </article>
+                <article class="reveal lift group glass rounded-4xl overflow-hidden shadow-soft border border-white/60">
+                    <div class="media-zoom relative aspect-[4/3] overflow-hidden">
+                        <span class="absolute top-4 left-4 z-10 bg-brand text-white text-xs font-display font-bold px-3 py-1.5 rounded-full shadow-soft">Estilo</span>
+                        <img data-fade loading="lazy" decoding="async" width="600" height="450" src="https://images.unsplash.com/photo-1583337130417-3346a1be7dee?w=600&h=450&fit=crop&crop=center" alt="Coleira refletiva com guia" class="w-full h-full object-cover">
+                    </div>
+                    <div class="p-6">
+                        <h3 class="font-display font-bold text-lg text-ink mb-1.5">Coleira Refletiva + Guia</h3>
+                        <p class="text-sm mb-5">Material refletivo para passeios noturnos seguros. Guia resistente inclusa.</p>
+                        <div class="flex items-center justify-between">
+                            <span class="font-display font-extrabold text-xl text-ink">R$ 45,90</span>
+                            <button class="btn grid place-items-center w-11 h-11 rounded-xl bg-ink text-cream hover:bg-brand transition-colors" aria-label="Adicionar Coleira Refletiva ao carrinho"><i data-lucide="shopping-cart" class="w-4 h-4"></i></button>
+                        </div>
+                    </div>
+                </article>
+                <article class="reveal lift group glass rounded-4xl overflow-hidden shadow-soft border border-white/60">
+                    <div class="media-zoom relative aspect-[4/3] overflow-hidden">
+                        <span class="absolute top-4 left-4 z-10 bg-gold text-ink text-xs font-display font-bold px-3 py-1.5 rounded-full shadow-soft">Higiene</span>
+                        <img data-fade loading="lazy" decoding="async" width="600" height="450" src="https://images.unsplash.com/photo-1576201836106-db1758fd1c97?w=600&h=450&fit=crop&crop=center" alt="Kit de higiene completo para pets" class="w-full h-full object-cover">
+                    </div>
+                    <div class="p-6">
+                        <h3 class="font-display font-bold text-lg text-ink mb-1.5">Kit Higiene Completo</h3>
+                        <p class="text-sm mb-5">Shampoo, condicionador, escova e toalha para o banho perfeito em casa.</p>
+                        <div class="flex items-center justify-between">
+                            <span class="font-display font-extrabold text-xl text-ink">R$ 79,90</span>
+                            <button class="btn grid place-items-center w-11 h-11 rounded-xl bg-ink text-cream hover:bg-brand transition-colors" aria-label="Adicionar Kit Higiene Completo ao carrinho"><i data-lucide="shopping-cart" class="w-4 h-4"></i></button>
+                        </div>
+                    </div>
+                </article>
+            </div>
+        </div>
+    </section>
+
+    <!-- ============ GALERIA ============ -->
+    <section id="galeria" class="py-24 lg:py-32 relative">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center max-w-2xl mx-auto mb-16">
+                <span class="reveal inline-flex items-center gap-2 text-brand font-display font-semibold text-sm tracking-wide uppercase mb-4"><i data-lucide="image" class="w-4 h-4"></i> Galeria de pets</span>
+                <h2 class="reveal fluid-h2 font-display font-extrabold text-ink mb-5" style="--reveal-delay:80ms">Momentos de <span class="text-gradient">pura felicidade</span>.</h2>
+                <p class="reveal fluid-lead text-ink-soft" style="--reveal-delay:160ms">Alguns dos amigos de quatro patas que já passaram por aqui. Cada um, especial à sua maneira.</p>
+            </div>
+
+            <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 auto-rows-[180px] sm:auto-rows-[220px]" data-stagger>
+                <figure class="reveal media-zoom relative row-span-2 rounded-3xl overflow-hidden border border-white/60 shadow-soft group">
+                    <img data-fade loading="lazy" decoding="async" width="500" height="800" src="https://images.unsplash.com/photo-1587300003388-59208cc962cb?w=500&h=800&fit=crop&crop=center" alt="Cachorro feliz após o banho" class="w-full h-full object-cover">
+                    <figcaption class="absolute inset-0 flex items-end p-4 bg-gradient-to-t from-ink/70 via-ink/0 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"><span class="text-white"><span class="block font-display font-bold">Thor</span><span class="block text-xs text-white/80">Banho &amp; Tosa</span></span></figcaption>
+                </figure>
+                <figure class="reveal media-zoom relative rounded-3xl overflow-hidden border border-white/60 shadow-soft group">
+                    <img data-fade loading="lazy" decoding="async" width="500" height="500" src="https://images.unsplash.com/photo-1514888286974-6c03e2ca1dba?w=500&h=500&fit=crop&crop=center" alt="Gato relaxado no hotelzinho" class="w-full h-full object-cover">
+                    <figcaption class="absolute inset-0 flex items-end p-4 bg-gradient-to-t from-ink/70 via-ink/0 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"><span class="text-white"><span class="block font-display font-bold">Luna</span><span class="block text-xs text-white/80">Hotelzinho</span></span></figcaption>
+                </figure>
+                <figure class="reveal media-zoom relative rounded-3xl overflow-hidden border border-white/60 shadow-soft group">
+                    <img data-fade loading="lazy" decoding="async" width="500" height="500" src="https://images.unsplash.com/photo-1548199973-03cce0bbc87b?w=500&h=500&fit=crop&crop=center" alt="Cachorros brincando juntos" class="w-full h-full object-cover">
+                    <figcaption class="absolute inset-0 flex items-end p-4 bg-gradient-to-t from-ink/70 via-ink/0 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"><span class="text-white"><span class="block font-display font-bold">Max &amp; Bob</span><span class="block text-xs text-white/80">Adestramento</span></span></figcaption>
+                </figure>
+                <figure class="reveal media-zoom relative row-span-2 rounded-3xl overflow-hidden border border-white/60 shadow-soft group">
+                    <img data-fade loading="lazy" decoding="async" width="500" height="800" src="https://images.unsplash.com/photo-1608096299210-db7e38487075?w=500&h=800&fit=crop&crop=center" alt="Golden Retriever feliz" class="w-full h-full object-cover">
+                    <figcaption class="absolute inset-0 flex items-end p-4 bg-gradient-to-t from-ink/70 via-ink/0 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"><span class="text-white"><span class="block font-display font-bold">Mel</span><span class="block text-xs text-white/80">Banho Especial</span></span></figcaption>
+                </figure>
+                <figure class="reveal media-zoom relative rounded-3xl overflow-hidden border border-white/60 shadow-soft group">
+                    <img data-fade loading="lazy" decoding="async" width="500" height="500" src="https://images.unsplash.com/photo-1592194996308-7b43878e84a6?w=500&h=500&fit=crop&crop=center" alt="Gato curioso na consulta" class="w-full h-full object-cover">
+                    <figcaption class="absolute inset-0 flex items-end p-4 bg-gradient-to-t from-ink/70 via-ink/0 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"><span class="text-white"><span class="block font-display font-bold">Simba</span><span class="block text-xs text-white/80">Consulta Vet</span></span></figcaption>
+                </figure>
+                <figure class="reveal media-zoom relative col-span-2 rounded-3xl overflow-hidden border border-white/60 shadow-soft group">
+                    <img data-fade loading="lazy" decoding="async" width="800" height="400" src="https://images.unsplash.com/photo-1601758124510-52d02ddb7cbd?w=800&h=400&fit=crop&crop=center" alt="Vários pets reunidos em dia de festa" class="w-full h-full object-cover">
+                    <figcaption class="absolute inset-0 flex items-end p-4 bg-gradient-to-t from-ink/70 via-ink/0 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"><span class="text-white"><span class="block font-display font-bold">Turma do Pet Amigo</span><span class="block text-xs text-white/80">Dia de Festa</span></span></figcaption>
+                </figure>
+                <figure class="reveal media-zoom relative rounded-3xl overflow-hidden border border-white/60 shadow-soft group">
+                    <img data-fade loading="lazy" decoding="async" width="500" height="500" src="https://images.unsplash.com/photo-1583511655857-d19b40a7a54e?w=500&h=500&fit=crop&crop=center" alt="Bulldog após tosa higiênica" class="w-full h-full object-cover">
+                    <figcaption class="absolute inset-0 flex items-end p-4 bg-gradient-to-t from-ink/70 via-ink/0 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"><span class="text-white"><span class="block font-display font-bold">Beto</span><span class="block text-xs text-white/80">Tosa Higiênica</span></span></figcaption>
+                </figure>
+                <figure class="reveal media-zoom relative rounded-3xl overflow-hidden border border-white/60 shadow-soft group">
+                    <img data-fade loading="lazy" decoding="async" width="500" height="500" src="https://images.unsplash.com/photo-1573865526739-10659fec78a5?w=500&h=500&fit=crop&crop=center" alt="Gato observando pela janela do hotel" class="w-full h-full object-cover">
+                    <figcaption class="absolute inset-0 flex items-end p-4 bg-gradient-to-t from-ink/70 via-ink/0 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"><span class="text-white"><span class="block font-display font-bold">Mia</span><span class="block text-xs text-white/80">Hospedagem</span></span></figcaption>
+                </figure>
+            </div>
+        </div>
+    </section>
+
+    <!-- ============ DEPOIMENTOS ============ -->
+    <section id="depoimentos" class="py-24 lg:py-32 relative">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="relative overflow-hidden glass rounded-5xl border border-white/60 shadow-card p-8 sm:p-14 lg:p-20">
+                <i data-lucide="quote" class="absolute -top-2 left-8 w-28 h-28 text-brand/10" aria-hidden="true"></i>
+                <div class="text-center max-w-2xl mx-auto mb-14">
+                    <span class="reveal inline-flex items-center gap-2 text-teal font-display font-semibold text-sm tracking-wide uppercase mb-4"><i data-lucide="message-circle-heart" class="w-4 h-4"></i> Depoimentos</span>
+                    <h2 class="reveal fluid-h2 font-display font-extrabold text-ink" style="--reveal-delay:80ms">Histórias de quem <span class="text-gradient">confia em nós</span>.</h2>
                 </div>
 
-                <!-- Product 2 -->
-                <div class="clay-card bg-white overflow-hidden group">
-                    <div class="aspect-[4/3] overflow-hidden">
-                        <img src="https://images.pexels.com/photos/58997/pexels-photo-58997.jpeg?auto=compress&cs=tinysrgb&w=600" 
-                             alt="Brinquedos para pets" 
-                             class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500">
-                    </div>
-                    <div class="p-6">
-                        <div class="flex items-center gap-2 mb-2">
-                            <span class="bg-pet-blue/10 text-pet-blue text-xs font-display font-bold px-2 py-1 rounded-full">Novo</span>
+                <div class="grid md:grid-cols-3 gap-7" data-stagger>
+                    <blockquote class="reveal lift bg-cream rounded-4xl p-7 shadow-soft border border-white/60">
+                        <div class="flex gap-1 mb-4 text-gold" aria-label="5 de 5 estrelas">
+                            <i data-lucide="star" class="w-4 h-4 fill-gold"></i><i data-lucide="star" class="w-4 h-4 fill-gold"></i><i data-lucide="star" class="w-4 h-4 fill-gold"></i><i data-lucide="star" class="w-4 h-4 fill-gold"></i><i data-lucide="star" class="w-4 h-4 fill-gold"></i>
                         </div>
-                        <h3 class="font-display font-bold text-lg text-gray-800 mb-2">Kit Brinquedos Interativos</h3>
-                        <p class="text-gray-600 text-sm mb-4">Brinquedos que estimulam a inteligência e mantêm seu pet entretido por horas.</p>
-                        <div class="flex items-center justify-between">
-                            <span class="font-display font-bold text-xl text-pet-orange">R$ 59,90</span>
-                            <button class="clay-button bg-pet-orange text-white p-3 hover:bg-pet-orange-dark">
-                                <i data-lucide="shopping-cart" class="w-4 h-4"></i>
-                            </button>
+                        <p class="text-ink-soft leading-relaxed mb-6">"O Pet Amigo salvou meu cachorro numa emergência às 3 da manhã. O plantão 24h é um diferencial enorme. Recomendo sempre!"</p>
+                        <footer class="flex items-center gap-3">
+                            <img data-fade loading="lazy" decoding="async" width="48" height="48" src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=100&h=100&fit=crop&crop=face" alt="Foto de Mariana Silva" class="w-12 h-12 rounded-full object-cover ring-2 ring-brand/30">
+                            <span class="leading-tight"><span class="block font-display font-bold text-ink">Mariana Silva</span><span class="block text-xs text-ink-faint">Tutora do Thor</span></span>
+                        </footer>
+                    </blockquote>
+                    <blockquote class="reveal lift bg-cream rounded-4xl p-7 shadow-soft border border-white/60">
+                        <div class="flex gap-1 mb-4 text-gold" aria-label="5 de 5 estrelas">
+                            <i data-lucide="star" class="w-4 h-4 fill-gold"></i><i data-lucide="star" class="w-4 h-4 fill-gold"></i><i data-lucide="star" class="w-4 h-4 fill-gold"></i><i data-lucide="star" class="w-4 h-4 fill-gold"></i><i data-lucide="star" class="w-4 h-4 fill-gold"></i>
                         </div>
-                    </div>
-                </div>
-
-                <!-- Product 3 -->
-                <div class="clay-card bg-white overflow-hidden group">
-                    <div class="aspect-[4/3] overflow-hidden">
-                        <img src="https://images.unsplash.com/photo-1601758228041-f3b2795255f1?w=600&h=450&fit=crop&crop=center" 
-                             alt="Cama confortável para pets" 
-                             class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500">
-                    </div>
-                    <div class="p-6">
-                        <div class="flex items-center gap-2 mb-2">
-                            <span class="bg-green-100 text-green-600 text-xs font-display font-bold px-2 py-1 rounded-full">Conforto</span>
+                        <p class="text-ink-soft leading-relaxed mb-6">"Levo a Luna para o hotelzinho sempre que viajo. Ela volta feliz e bem cuidada, e a equipe ainda manda fotos durante a hospedagem!"</p>
+                        <footer class="flex items-center gap-3">
+                            <img data-fade loading="lazy" decoding="async" width="48" height="48" src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=100&h=100&fit=crop&crop=face" alt="Foto de Carlos Eduardo" class="w-12 h-12 rounded-full object-cover ring-2 ring-brand/30">
+                            <span class="leading-tight"><span class="block font-display font-bold text-ink">Carlos Eduardo</span><span class="block text-xs text-ink-faint">Tutor da Luna</span></span>
+                        </footer>
+                    </blockquote>
+                    <blockquote class="reveal lift bg-cream rounded-4xl p-7 shadow-soft border border-white/60">
+                        <div class="flex gap-1 mb-4 text-gold" aria-label="5 de 5 estrelas">
+                            <i data-lucide="star" class="w-4 h-4 fill-gold"></i><i data-lucide="star" class="w-4 h-4 fill-gold"></i><i data-lucide="star" class="w-4 h-4 fill-gold"></i><i data-lucide="star" class="w-4 h-4 fill-gold"></i><i data-lucide="star" class="w-4 h-4 fill-gold"></i>
                         </div>
-                        <h3 class="font-display font-bold text-lg text-gray-800 mb-2">Cama Ortopédica Premium</h3>
-                        <p class="text-gray-600 text-sm mb-4">Cama ergonômica com espuma de memória para o descanso perfeito do seu pet.</p>
-                        <div class="flex items-center justify-between">
-                            <span class="font-display font-bold text-xl text-pet-orange">R$ 249,90</span>
-                            <button class="clay-button bg-pet-orange text-white p-3 hover:bg-pet-orange-dark">
-                                <i data-lucide="shopping-cart" class="w-4 h-4"></i>
-                            </button>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Product 4 -->
-                <div class="clay-card bg-white overflow-hidden group">
-                    <div class="aspect-[4/3] overflow-hidden">
-                        <img src="https://images.unsplash.com/photo-1516734212186-a967f81ad0d7?w=600&h=450&fit=crop&crop=center" 
-                             alt="Petiscos naturais" 
-                             class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500">
-                    </div>
-                    <div class="p-6">
-                        <div class="flex items-center gap-2 mb-2">
-                            <span class="bg-pet-orange/10 text-pet-orange text-xs font-display font-bold px-2 py-1 rounded-full">Natural</span>
-                        </div>
-                        <h3 class="font-display font-bold text-lg text-gray-800 mb-2">Petiscos Naturais</h3>
-                        <p class="text-gray-600 text-sm mb-4">Petiscos feitos com ingredientes 100% naturais, sem conservantes artificiais.</p>
-                        <div class="flex items-center justify-between">
-                            <span class="font-display font-bold text-xl text-pet-orange">R$ 29,90</span>
-                            <button class="clay-button bg-pet-orange text-white p-3 hover:bg-pet-orange-dark">
-                                <i data-lucide="shopping-cart" class="w-4 h-4"></i>
-                            </button>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Product 5 -->
-                <div class="clay-card bg-white overflow-hidden group">
-                    <div class="aspect-[4/3] overflow-hidden">
-                        <img src="https://images.unsplash.com/photo-1583337130417-3346a1be7dee?w=600&h=450&fit=crop&crop=center" 
-                             alt="Coleira e acessórios" 
-                             class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500">
-                    </div>
-                    <div class="p-6">
-                        <div class="flex items-center gap-2 mb-2">
-                            <span class="bg-pet-blue/10 text-pet-blue text-xs font-display font-bold px-2 py-1 rounded-full">Estilo</span>
-                        </div>
-                        <h3 class="font-display font-bold text-lg text-gray-800 mb-2">Coleira Refletiva + Guia</h3>
-                        <p class="text-gray-600 text-sm mb-4">Coleira com material refletivo para passeios seguros à noite. Guia resistente inclusa.</p>
-                        <div class="flex items-center justify-between">
-                            <span class="font-display font-bold text-xl text-pet-orange">R$ 45,90</span>
-                            <button class="clay-button bg-pet-orange text-white p-3 hover:bg-pet-orange-dark">
-                                <i data-lucide="shopping-cart" class="w-4 h-4"></i>
-                            </button>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Product 6 -->
-                <div class="clay-card bg-white overflow-hidden group">
-                    <div class="aspect-[4/3] overflow-hidden">
-                        <img src="https://images.unsplash.com/photo-1576201836106-db1758fd1c97?w=600&h=450&fit=crop&crop=center" 
-                             alt="Shampoo e produtos de higiene" 
-                             class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500">
-                    </div>
-                    <div class="p-6">
-                        <div class="flex items-center gap-2 mb-2">
-                            <span class="bg-green-100 text-green-600 text-xs font-display font-bold px-2 py-1 rounded-full">Higiene</span>
-                        </div>
-                        <h3 class="font-display font-bold text-lg text-gray-800 mb-2">Kit Higiene Completo</h3>
-                        <p class="text-gray-600 text-sm mb-4">Shampoo, condicionador, escova e toalha. Tudo para o banho em casa.</p>
-                        <div class="flex items-center justify-between">
-                            <span class="font-display font-bold text-xl text-pet-orange">R$ 79,90</span>
-                            <button class="clay-button bg-pet-orange text-white p-3 hover:bg-pet-orange-dark">
-                                <i data-lucide="shopping-cart" class="w-4 h-4"></i>
-                            </button>
-                        </div>
-                    </div>
+                        <p class="text-ink-soft leading-relaxed mb-6">"Banho e tosa impecáveis! Meu golden sai sempre cheiroso, macio e com um corte lindo. Os produtos da loja também são ótimos."</p>
+                        <footer class="flex items-center gap-3">
+                            <img data-fade loading="lazy" decoding="async" width="48" height="48" src="https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=100&h=100&fit=crop&crop=face" alt="Foto de Fernanda Costa" class="w-12 h-12 rounded-full object-cover ring-2 ring-brand/30">
+                            <span class="leading-tight"><span class="block font-display font-bold text-ink">Fernanda Costa</span><span class="block text-xs text-ink-faint">Tutora da Mel</span></span>
+                        </footer>
+                    </blockquote>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- Galeria Section -->
-    <section id="galeria" class="py-20 relative">
+    <!-- ============ AGENDAMENTO ============ -->
+    <section id="agendamento" class="py-24 lg:py-32 relative">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="text-center mb-16">
-                <div class="inline-flex items-center gap-2 bg-pet-orange/10 clay-card px-4 py-2 mb-4">
-                    <i data-lucide="image" class="w-4 h-4 text-pet-orange"></i>
-                    <span class="font-display font-semibold text-sm text-pet-orange">Galeria de Pets</span>
-                </div>
-                <h2 class="font-display font-extrabold text-4xl sm:text-5xl text-gray-800 mb-4">
-                    Momentos de
-                    <span class="text-pet-orange">felicidade</span>
-                </h2>
-                <p class="text-lg text-gray-600 max-w-2xl mx-auto">
-                    Confira alguns dos pets que já passaram pelo Pet Amigo. Cada um deles é especial para nós!
-                </p>
-            </div>
+            <div class="grid lg:grid-cols-2 gap-10 lg:gap-16 items-start">
+                <!-- Form -->
+                <div class="reveal" data-reveal="left">
+                    <span class="inline-flex items-center gap-2 text-brand font-display font-semibold text-sm tracking-wide uppercase mb-4"><i data-lucide="calendar-check" class="w-4 h-4"></i> Agendamento online</span>
+                    <h2 class="fluid-h2 font-display font-extrabold text-ink mb-4">Reserve um horário com <span class="text-gradient">tranquilidade</span>.</h2>
+                    <p class="fluid-lead text-ink-soft mb-9">Preencha os dados e nossa equipe confirma rapidinho. Seu pet está a um clique do melhor cuidado.</p>
 
-            <!-- Masonry-like Gallery -->
-            <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 auto-rows-[200px]">
-                <!-- Tall Item -->
-                <div class="gallery-item row-span-2 relative group">
-                    <img src="https://images.unsplash.com/photo-1587300003388-59208cc962cb?w=500&h=800&fit=crop&crop=center" 
-                         alt="Cachorro feliz no pet shop" 
-                         class="w-full h-full object-cover">
-                    <div class="gallery-overlay absolute inset-0 bg-gradient-to-t from-black/60 to-transparent flex items-end p-4">
-                        <div class="text-white">
-                            <p class="font-display font-bold">Thor</p>
-                            <p class="text-sm text-white/80">Banho & Tosa</p>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Normal Item -->
-                <div class="gallery-item relative group">
-                    <img src="https://images.unsplash.com/photo-1514888286974-6c03e2ca1dba?w=500&h=500&fit=crop&crop=center" 
-                         alt="Gato relaxado" 
-                         class="w-full h-full object-cover">
-                    <div class="gallery-overlay absolute inset-0 bg-gradient-to-t from-black/60 to-transparent flex items-end p-4">
-                        <div class="text-white">
-                            <p class="font-display font-bold">Luna</p>
-                            <p class="text-sm text-white/80">Hotelzinho</p>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Normal Item -->
-                <div class="gallery-item relative group">
-                    <img src="https://images.unsplash.com/photo-1548199973-03cce0bbc87b?w=500&h=500&fit=crop&crop=center" 
-                         alt="Cachorros brincando" 
-                         class="w-full h-full object-cover">
-                    <div class="gallery-overlay absolute inset-0 bg-gradient-to-t from-black/60 to-transparent flex items-end p-4">
-                        <div class="text-white">
-                            <p class="font-display font-bold">Max & Bob</p>
-                            <p class="text-sm text-white/80">Adestramento</p>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Tall Item -->
-                <div class="gallery-item row-span-2 relative group">
-                    <img src="https://images.unsplash.com/photo-1608096299210-db7e38487075?w=500&h=800&fit=crop&crop=center" 
-                         alt="Golden Retriever feliz" 
-                         class="w-full h-full object-cover">
-                    <div class="gallery-overlay absolute inset-0 bg-gradient-to-t from-black/60 to-transparent flex items-end p-4">
-                        <div class="text-white">
-                            <p class="font-display font-bold">Mel</p>
-                            <p class="text-sm text-white/80">Banho Especial</p>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Normal Item -->
-                <div class="gallery-item relative group">
-                    <img src="https://images.unsplash.com/photo-1592194996308-7b43878e84a6?w=500&h=500&fit=crop&crop=center" 
-                         alt="Gato curioso" 
-                         class="w-full h-full object-cover">
-                    <div class="gallery-overlay absolute inset-0 bg-gradient-to-t from-black/60 to-transparent flex items-end p-4">
-                        <div class="text-white">
-                            <p class="font-display font-bold">Simba</p>
-                            <p class="text-sm text-white/80">Consulta Vet</p>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Wide Item -->
-                <div class="gallery-item col-span-2 relative group">
-                    <img src="https://images.unsplash.com/photo-1601758124510-52d02ddb7cbd?w=800&h=400&fit=crop&crop=center" 
-                         alt="Família de pets" 
-                         class="w-full h-full object-cover">
-                    <div class="gallery-overlay absolute inset-0 bg-gradient-to-t from-black/60 to-transparent flex items-end p-4">
-                        <div class="text-white">
-                            <p class="font-display font-bold">Turma do Pet Amigo</p>
-                            <p class="text-sm text-white/80">Dia de Festa</p>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Normal Item -->
-                <div class="gallery-item relative group">
-                    <img src="https://images.unsplash.com/photo-1583511655857-d19b40a7a54e?w=500&h=500&fit=crop&crop=center" 
-                         alt="Bulldog fofo" 
-                         class="w-full h-full object-cover">
-                    <div class="gallery-overlay absolute inset-0 bg-gradient-to-t from-black/60 to-transparent flex items-end p-4">
-                        <div class="text-white">
-                            <p class="font-display font-bold">Beto</p>
-                            <p class="text-sm text-white/80">Tosa Higiênica</p>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Normal Item -->
-                <div class="gallery-item relative group">
-                    <img src="https://images.unsplash.com/photo-1573865526739-10659fec78a5?w=500&h=500&fit=crop&crop=center" 
-                         alt="Gato olhando pela janela" 
-                         class="w-full h-full object-cover">
-                    <div class="gallery-overlay absolute inset-0 bg-gradient-to-t from-black/60 to-transparent flex items-end p-4">
-                        <div class="text-white">
-                            <p class="font-display font-bold">Mia</p>
-                            <p class="text-sm text-white/80">Hospedagem</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Depoimentos Section -->
-    <section class="py-20 relative">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="clay-section bg-white p-8 sm:p-12 lg:p-16">
-                <div class="text-center mb-12">
-                    <div class="inline-flex items-center gap-2 bg-pet-blue/10 clay-card px-4 py-2 mb-4">
-                        <i data-lucide="message-circle" class="w-4 h-4 text-pet-blue"></i>
-                        <span class="font-display font-semibold text-sm text-pet-blue">Depoimentos</span>
-                    </div>
-                    <h2 class="font-display font-extrabold text-3xl sm:text-4xl text-gray-800">
-                        O que os <span class="text-pet-blue">tutores</span> dizem
-                    </h2>
-                </div>
-
-                <div class="grid md:grid-cols-3 gap-8">
-                    <!-- Testimonial 1 -->
-                    <div class="clay-card bg-pet-cream p-6">
-                        <div class="flex gap-1 mb-4">
-                            <i data-lucide="star" class="w-5 h-5 text-pet-orange fill-current"></i>
-                            <i data-lucide="star" class="w-5 h-5 text-pet-orange fill-current"></i>
-                            <i data-lucide="star" class="w-5 h-5 text-pet-orange fill-current"></i>
-                            <i data-lucide="star" class="w-5 h-5 text-pet-orange fill-current"></i>
-                            <i data-lucide="star" class="w-5 h-5 text-pet-orange fill-current"></i>
-                        </div>
-                        <p class="text-gray-700 mb-6 italic">"O Pet Amigo salvou meu cachorro em uma emergência às 3 da manhã. O atendimento veterinário 24h é um diferencial enorme. Sempre recomendo!"</p>
-                        <div class="flex items-center gap-3">
-                            <img src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=100&h=100&fit=crop&crop=face" 
-                                 alt="Cliente satisfeita" 
-                                 class="w-12 h-12 rounded-full object-cover border-2 border-pet-orange">
+                    <form id="booking-form" class="glass rounded-4xl border border-white/60 shadow-soft p-7 sm:p-8 space-y-5" novalidate>
+                        <div class="grid sm:grid-cols-2 gap-5">
                             <div>
-                                <p class="font-display font-bold text-gray-800">Mariana Silva</p>
-                                <p class="text-sm text-gray-500">Tutora do Thor</p>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Testimonial 2 -->
-                    <div class="clay-card bg-pet-cream p-6">
-                        <div class="flex gap-1 mb-4">
-                            <i data-lucide="star" class="w-5 h-5 text-pet-orange fill-current"></i>
-                            <i data-lucide="star" class="w-5 h-5 text-pet-orange fill-current"></i>
-                            <i data-lucide="star" class="w-5 h-5 text-pet-orange fill-current"></i>
-                            <i data-lucide="star" class="w-5 h-5 text-pet-orange fill-current"></i>
-                            <i data-lucide="star" class="w-5 h-5 text-pet-orange fill-current"></i>
-                        </div>
-                        <p class="text-gray-700 mb-6 italic">"Levo minha gata Luna para o hotelzinho sempre que viajo. Ela volta feliz e bem cuidada. A equipe é super atenciosa e manda fotos durante a hospedagem!"</p>
-                        <div class="flex items-center gap-3">
-                            <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=100&h=100&fit=crop&crop=face" 
-                                 alt="Cliente satisfeito" 
-                                 class="w-12 h-12 rounded-full object-cover border-2 border-pet-orange">
-                            <div>
-                                <p class="font-display font-bold text-gray-800">Carlos Eduardo</p>
-                                <p class="text-sm text-gray-500">Tutor da Luna</p>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Testimonial 3 -->
-                    <div class="clay-card bg-pet-cream p-6">
-                        <div class="flex gap-1 mb-4">
-                            <i data-lucide="star" class="w-5 h-5 text-pet-orange fill-current"></i>
-                            <i data-lucide="star" class="w-5 h-5 text-pet-orange fill-current"></i>
-                            <i data-lucide="star" class="w-5 h-5 text-pet-orange fill-current"></i>
-                            <i data-lucide="star" class="w-5 h-5 text-pet-orange fill-current"></i>
-                            <i data-lucide="star" class="w-5 h-5 text-pet-orange fill-current"></i>
-                        </div>
-                        <p class="text-gray-700 mb-6 italic">"Banho e tosa impecáveis! Meu golden sai sempre cheiroso, macio e com um corte lindo. Os produtos que vendem também são ótimos e duráveis."</p>
-                        <div class="flex items-center gap-3">
-                            <img src="https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=100&h=100&fit=crop&crop=face" 
-                                 alt="Cliente satisfeita" 
-                                 class="w-12 h-12 rounded-full object-cover border-2 border-pet-orange">
-                            <div>
-                                <p class="font-display font-bold text-gray-800">Fernanda Costa</p>
-                                <p class="text-sm text-gray-500">Tutora da Mel</p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Agendamento Section -->
-    <section id="agendamento" class="py-20 relative">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="grid lg:grid-cols-2 gap-12 items-center">
-                <!-- Form Side -->
-                <div>
-                    <div class="inline-flex items-center gap-2 bg-pet-orange/10 clay-card px-4 py-2 mb-4">
-                        <i data-lucide="calendar-check" class="w-4 h-4 text-pet-orange"></i>
-                        <span class="font-display font-semibold text-sm text-pet-orange">Agendamento Online</span>
-                    </div>
-                    <h2 class="font-display font-extrabold text-4xl sm:text-5xl text-gray-800 mb-4">
-                        Agende agora com
-                        <span class="text-pet-orange">facilidade</span>
-                    </h2>
-                    <p class="text-lg text-gray-600 mb-8">
-                        Preencha o formulário e entraremos em contato para confirmar seu horário. Seu pet está a um clique de distância do melhor cuidado!
-                    </p>
-
-                    <form class="space-y-6" onsubmit="event.preventDefault(); alert('Agendamento enviado com sucesso! Entraremos em contato em brede.');">
-                        <div class="grid sm:grid-cols-2 gap-6">
-                            <div>
-                                <label class="font-display font-semibold text-gray-700 mb-2 block">Seu nome</label>
-                                <input type="text" placeholder="Como podemos te chamar?" 
-                                       class="clay-input w-full px-5 py-3 bg-white/80" required>
+                                <label for="f-nome" class="block font-display font-semibold text-sm text-ink mb-2">Seu nome</label>
+                                <input id="f-nome" name="nome" type="text" required autocomplete="name" placeholder="Como podemos te chamar?" class="field w-full px-4 py-3 text-ink">
                             </div>
                             <div>
-                                <label class="font-display font-semibold text-gray-700 mb-2 block">Telefone</label>
-                                <input type="tel" placeholder="(XX) XXXXX-XXXX" 
-                                       class="clay-input w-full px-5 py-3 bg-white/80" required>
+                                <label for="f-tel" class="block font-display font-semibold text-sm text-ink mb-2">Telefone</label>
+                                <input id="f-tel" name="telefone" type="tel" required autocomplete="tel" placeholder="(11) 99999-9999" class="field w-full px-4 py-3 text-ink">
                             </div>
                         </div>
-
-                        <div class="grid sm:grid-cols-2 gap-6">
+                        <div class="grid sm:grid-cols-2 gap-5">
                             <div>
-                                <label class="font-display font-semibold text-gray-700 mb-2 block">Nome do Pet</label>
-                                <input type="text" placeholder="Qual o nome do seu pet?" 
-                                       class="clay-input w-full px-5 py-3 bg-white/80" required>
+                                <label for="f-pet" class="block font-display font-semibold text-sm text-ink mb-2">Nome do pet</label>
+                                <input id="f-pet" name="pet" type="text" required placeholder="Qual o nome do seu pet?" class="field w-full px-4 py-3 text-ink">
                             </div>
                             <div>
-                                <label class="font-display font-semibold text-gray-700 mb-2 block">Tipo de Pet</label>
-                                <select class="clay-input w-full px-5 py-3 bg-white/80">
-                                    <option>Cachorro</option>
-                                    <option>Gato</option>
-                                    <option>Pássaro</option>
-                                    <option>Roedor</option>
-                                    <option>Outro</option>
+                                <label for="f-tipo" class="block font-display font-semibold text-sm text-ink mb-2">Tipo de pet</label>
+                                <select id="f-tipo" name="tipo" class="field w-full px-4 py-3 text-ink">
+                                    <option>Cachorro</option><option>Gato</option><option>Pássaro</option><option>Roedor</option><option>Outro</option>
                                 </select>
                             </div>
                         </div>
-
-                        <div>
-                            <label class="font-display font-semibold text-gray-700 mb-2 block">Serviço Desejado</label>
-                            <select class="clay-input w-full px-5 py-3 bg-white/80">
-                                <option>Banho & Tosa</option>
-                                <option>Consulta Veterinária</option>
-                                <option>Hotelzinho</option>
-                                <option>Adestramento</option>
-                                <option>Vacinação</option>
-                                <option>Outro</option>
-                            </select>
+                        <div class="grid sm:grid-cols-2 gap-5">
+                            <div>
+                                <label for="f-serv" class="block font-display font-semibold text-sm text-ink mb-2">Serviço desejado</label>
+                                <select id="f-serv" name="servico" class="field w-full px-4 py-3 text-ink">
+                                    <option>Banho &amp; Tosa</option><option>Consulta Veterinária</option><option>Hotelzinho</option><option>Adestramento</option><option>Vacinação</option><option>Outro</option>
+                                </select>
+                            </div>
+                            <div>
+                                <label for="f-data" class="block font-display font-semibold text-sm text-ink mb-2">Data preferencial</label>
+                                <input id="f-data" name="data" type="date" class="field w-full px-4 py-3 text-ink">
+                            </div>
                         </div>
-
                         <div>
-                            <label class="font-display font-semibold text-gray-700 mb-2 block">Data Preferencial</label>
-                            <input type="date" class="clay-input w-full px-5 py-3 bg-white/80">
+                            <label for="f-obs" class="block font-display font-semibold text-sm text-ink mb-2">Observações</label>
+                            <textarea id="f-obs" name="obs" rows="3" placeholder="Conte-nos sobre alguma necessidade especial do seu pet..." class="field w-full px-4 py-3 text-ink resize-none"></textarea>
                         </div>
-
-                        <div>
-                            <label class="font-display font-semibold text-gray-700 mb-2 block">Observações</label>
-                            <textarea rows="4" placeholder="Conte-nos mais sobre seu pet ou alguma necessidade especial..." 
-                                      class="clay-input w-full px-5 py-3 bg-white/80 resize-none"></textarea>
-                        </div>
-
-                        <button type="submit" class="clay-button w-full bg-pet-orange text-white font-display font-bold text-lg px-8 py-4 hover:bg-pet-orange-dark inline-flex items-center justify-center gap-3">
-                            <i data-lucide="send" class="w-5 h-5"></i>
-                            Solicitar Agendamento
+                        <button type="submit" class="btn btn-sheen w-full inline-flex items-center justify-center gap-2.5 rounded-full bg-brand text-white font-display font-bold px-8 py-4 shadow-glow">
+                            <i data-lucide="send" class="w-5 h-5"></i> Solicitar agendamento
                         </button>
+                        <p id="form-status" role="status" aria-live="polite" class="hidden text-center font-display font-semibold text-teal">
+                            <i data-lucide="check-circle-2" class="inline w-5 h-5 -mt-1"></i> Agendamento enviado! Entraremos em contato em breve.
+                        </p>
                     </form>
                 </div>
 
-                <!-- Info Side -->
-                <div class="relative">
-                    <div class="clay-card overflow-hidden mb-8">
-                        <img src="https://images.pexels.com/photos/1108100/pexels-photo-1108100.jpeg?auto=compress&cs=tinysrgb&w=700" 
-                             alt="Equipe Pet Amigo com pets" 
-                             class="w-full h-64 sm:h-80 object-cover">
+                <!-- Info -->
+                <div class="reveal space-y-5" data-reveal="right" style="--reveal-delay:120ms">
+                    <div class="media-zoom relative overflow-hidden rounded-4xl border border-white/60 shadow-card">
+                        <img data-fade loading="lazy" decoding="async" width="700" height="420" src="https://images.pexels.com/photos/1108100/pexels-photo-1108100.jpeg?auto=compress&cs=tinysrgb&w=700" alt="Equipe Pet Amigo cuidando dos pets" class="w-full h-64 sm:h-80 object-cover">
                     </div>
-
-                    <div class="space-y-4">
-                        <div class="clay-card bg-white p-6 flex items-start gap-4">
-                            <div class="w-12 h-12 bg-pet-orange/10 rounded-xl flex items-center justify-center shrink-0">
-                                <i data-lucide="map-pin" class="w-6 h-6 text-pet-orange"></i>
-                            </div>
-                            <div>
-                                <h4 class="font-display font-bold text-gray-800">Endereço</h4>
-                                <p class="text-gray-600">Av. dos Imigrantes, 1500 — Jardim das Oliveiras<br>Bragança Paulista, SP</p>
-                            </div>
-                        </div>
-
-                        <div class="clay-card bg-white p-6 flex items-start gap-4">
-                            <div class="w-12 h-12 bg-pet-blue/10 rounded-xl flex items-center justify-center shrink-0">
-                                <i data-lucide="clock" class="w-6 h-6 text-pet-blue"></i>
-                            </div>
-                            <div>
-                                <h4 class="font-display font-bold text-gray-800">Horário de Funcionamento</h4>
-                                <p class="text-gray-600">Segunda a Sábado: 8h às 20h<br>Domingo: 9h às 14h<br><span class="text-pet-blue font-semibold">Veterinária 24h todos os dias</span></p>
-                            </div>
-                        </div>
-
-                        <div class="clay-card bg-white p-6 flex items-start gap-4">
-                            <div class="w-12 h-12 bg-pet-orange/10 rounded-xl flex items-center justify-center shrink-0">
-                                <i data-lucide="phone" class="w-6 h-6 text-pet-orange"></i>
-                            </div>
-                            <div>
-                                <h4 class="font-display font-bold text-gray-800">Contato</h4>
-                                <p class="text-gray-600">(11) 4033-4521<br>WhatsApp: (11) 98765-4321<br>contato@petamigo.com.br</p>
-                            </div>
-                        </div>
+                    <div class="glass rounded-4xl border border-white/60 shadow-soft p-6 flex items-start gap-4">
+                        <span class="grid place-items-center w-12 h-12 rounded-2xl bg-brand-tint text-brand shrink-0"><i data-lucide="map-pin" class="w-6 h-6"></i></span>
+                        <div><h3 class="font-display font-bold text-ink">Endereço</h3><p class="text-sm text-ink-soft">Av. dos Imigrantes, 1500 — Jardim das Oliveiras<br>Bragança Paulista, SP</p></div>
+                    </div>
+                    <div class="glass rounded-4xl border border-white/60 shadow-soft p-6 flex items-start gap-4">
+                        <span class="grid place-items-center w-12 h-12 rounded-2xl bg-teal-tint text-teal shrink-0"><i data-lucide="clock" class="w-6 h-6"></i></span>
+                        <div><h3 class="font-display font-bold text-ink">Horário</h3><p class="text-sm text-ink-soft">Seg a Sáb: 8h às 20h · Dom: 9h às 14h<br><span class="text-teal font-semibold">Veterinária 24h, todos os dias</span></p></div>
+                    </div>
+                    <div class="glass rounded-4xl border border-white/60 shadow-soft p-6 flex items-start gap-4">
+                        <span class="grid place-items-center w-12 h-12 rounded-2xl bg-brand-tint text-brand shrink-0"><i data-lucide="phone" class="w-6 h-6"></i></span>
+                        <div><h3 class="font-display font-bold text-ink">Contato</h3><p class="text-sm text-ink-soft">(11) 4033-4521 · WhatsApp (11) 98765-4321<br>contato@petamigo.com.br</p></div>
                     </div>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- Footer -->
-    <footer class="relative mt-20">
-        <!-- Wave Separator -->
-        <div class="absolute -top-px left-0 right-0">
-            <svg viewBox="0 0 1440 80" fill="none" xmlns="http://www.w3.org/2000/svg" class="w-full">
-                <path d="M0 80V40C240 0 480 0 720 20C960 40 1200 60 1440 40V80H0Z" fill="#F97316"/>
-            </svg>
-        </div>
+    </main>
 
-        <div class="bg-pet-orange pt-16 pb-8">
-            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-                <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-8 mb-12">
-                    <!-- Brand -->
-                    <div class="sm:col-span-2 lg:col-span-1">
-                        <div class="flex items-center gap-3 mb-4">
-                            <div class="w-10 h-10 bg-white rounded-full flex items-center justify-center">
-                                <i data-lucide="paw-print" class="w-5 h-5 text-pet-orange"></i>
-                            </div>
-                            <div>
-                                <h3 class="font-display font-bold text-xl text-white">Pet Amigo</h3>
-                            </div>
-                        </div>
-                        <p class="text-white/90 mb-6">
-                            Cuidando do seu melhor amigo com amor, dedicação e profissionalismo desde 2008 em Bragança Paulista.
-                        </p>
-                        <div class="flex gap-3">
-                            <a href="#" class="w-10 h-10 bg-white/20 rounded-full flex items-center justify-center hover:bg-white/30 transition-colors">
-                                <i data-lucide="instagram" class="w-5 h-5 text-white"></i>
-                            </a>
-                            <a href="#" class="w-10 h-10 bg-white/20 rounded-full flex items-center justify-center hover:bg-white/30 transition-colors">
-                                <i data-lucide="facebook" class="w-5 h-5 text-white"></i>
-                            </a>
-                            <a href="#" class="w-10 h-10 bg-white/20 rounded-full flex items-center justify-center hover:bg-white/30 transition-colors">
-                                <i data-lucide="youtube" class="w-5 h-5 text-white"></i>
-                            </a>
-                        </div>
+    <!-- ============ FOOTER ============ -->
+    <footer class="relative mt-10 bg-ink text-cream/80 overflow-hidden">
+        <div class="absolute -top-24 left-1/2 -translate-x-1/2 w-[40rem] h-[40rem] rounded-full bg-brand/10 blur-3xl" aria-hidden="true"></div>
+        <div class="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-20 pb-10">
+            <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-10 mb-14">
+                <div class="sm:col-span-2 lg:col-span-1">
+                    <div class="flex items-center gap-3 mb-5">
+                        <span class="grid place-items-center w-10 h-10 rounded-2xl bg-gradient-to-br from-brand to-brand-light text-white"><i data-lucide="paw-print" class="w-5 h-5"></i></span>
+                        <span class="font-display font-extrabold text-xl text-white">Pet Amigo</span>
                     </div>
-
-                    <!-- Quick Links -->
-                    <div>
-                        <h4 class="font-display font-bold text-white mb-4">Links Rápidos</h4>
-                        <ul class="space-y-2">
-                            <li><a href="#servicos" class="text-white/80 hover:text-white transition-colors">Serviços</a></li>
-                            <li><a href="#produtos" class="text-white/80 hover:text-white transition-colors">Produtos</a></li>
-                            <li><a href="#galeria" class="text-white/80 hover:text-white transition-colors">Galeria</a></li>
-                            <li><a href="#agendamento" class="text-white/80 hover:text-white transition-colors">Agendamento</a></li>
-                        </ul>
-                    </div>
-
-                    <!-- Services -->
-                    <div>
-                        <h4 class="font-display font-bold text-white mb-4">Serviços</h4>
-                        <ul class="space-y-2">
-                            <li><a href="#" class="text-white/80 hover:text-white transition-colors">Banho & Tosa</a></li>
-                            <li><a href="#" class="text-white/80 hover:text-white transition-colors">Veterinária 24h</a></li>
-                            <li><a href="#" class="text-white/80 hover:text-white transition-colors">Hotelzinho</a></li>
-                            <li><a href="#" class="text-white/80 hover:text-white transition-colors">Adestramento</a></li>
-                            <li><a href="#" class="text-white/80 hover:text-white transition-colors">Pet Shop</a></li>
-                        </ul>
-                    </div>
-
-                    <!-- Contact -->
-                    <div>
-                        <h4 class="font-display font-bold text-white mb-4">Contato</h4>
-                        <ul class="space-y-3">
-                            <li class="flex items-center gap-3 text-white/80">
-                                <i data-lucide="map-pin" class="w-4 h-4 shrink-0"></i>
-                                <span>Av. dos Imigrantes, 1500</span>
-                            </li>
-                            <li class="flex items-center gap-3 text-white/80">
-                                <i data-lucide="phone" class="w-4 h-4 shrink-0"></i>
-                                <span>(11) 4033-4521</span>
-                            </li>
-                            <li class="flex items-center gap-3 text-white/80">
-                                <i data-lucide="mail" class="w-4 h-4 shrink-0"></i>
-                                <span>contato@petamigo.com.br</span>
-                            </li>
-                            <li class="flex items-center gap-3 text-white/80">
-                                <i data-lucide="clock" class="w-4 h-4 shrink-0"></i>
-                                <span>Seg-Sáb: 8h às 20h</span>
-                            </li>
-                        </ul>
+                    <p class="text-sm leading-relaxed mb-6">Cuidando do seu melhor amigo com amor, ciência e dedicação desde 2008, em Bragança Paulista.</p>
+                    <div class="flex gap-3">
+                        <a href="#" aria-label="Instagram do Pet Amigo" class="grid place-items-center w-10 h-10 rounded-xl bg-white/10 hover:bg-brand transition-colors"><i data-lucide="instagram" class="w-5 h-5 text-white"></i></a>
+                        <a href="#" aria-label="Facebook do Pet Amigo" class="grid place-items-center w-10 h-10 rounded-xl bg-white/10 hover:bg-brand transition-colors"><i data-lucide="facebook" class="w-5 h-5 text-white"></i></a>
+                        <a href="#" aria-label="YouTube do Pet Amigo" class="grid place-items-center w-10 h-10 rounded-xl bg-white/10 hover:bg-brand transition-colors"><i data-lucide="youtube" class="w-5 h-5 text-white"></i></a>
                     </div>
                 </div>
-
-                <!-- Bottom Bar -->
-                <div class="border-t border-white/20 pt-8 flex flex-col sm:flex-row items-center justify-between gap-4">
-                    <p class="text-white/80 text-sm text-center sm:text-left">
-                        © 2026 Pet Amigo. Todos os direitos reservados. Desenvolvido com 🧡 por 
-                        <a href="#" class="text-white font-semibold hover:underline">Akamine Web Studio</a>.
-                    </p>
-                    <div class="flex items-center gap-2 text-white/60 text-sm">
-                        <i data-lucide="heart" class="w-4 h-4 text-white animate-heartbeat"></i>
-                        <span>Feito com amor para pets</span>
-                    </div>
+                <nav aria-label="Links rápidos">
+                    <h3 class="font-display font-bold text-white mb-4">Navegação</h3>
+                    <ul class="space-y-2.5 text-sm">
+                        <li><a href="#servicos" class="hover:text-white transition-colors">Serviços</a></li>
+                        <li><a href="#produtos" class="hover:text-white transition-colors">Produtos</a></li>
+                        <li><a href="#galeria" class="hover:text-white transition-colors">Galeria</a></li>
+                        <li><a href="#depoimentos" class="hover:text-white transition-colors">Depoimentos</a></li>
+                    </ul>
+                </nav>
+                <nav aria-label="Serviços">
+                    <h3 class="font-display font-bold text-white mb-4">Serviços</h3>
+                    <ul class="space-y-2.5 text-sm">
+                        <li><a href="#servicos" class="hover:text-white transition-colors">Banho &amp; Tosa</a></li>
+                        <li><a href="#servicos" class="hover:text-white transition-colors">Veterinária 24h</a></li>
+                        <li><a href="#servicos" class="hover:text-white transition-colors">Hotelzinho</a></li>
+                        <li><a href="#servicos" class="hover:text-white transition-colors">Adestramento</a></li>
+                    </ul>
+                </nav>
+                <div>
+                    <h3 class="font-display font-bold text-white mb-4">Contato</h3>
+                    <ul class="space-y-3 text-sm">
+                        <li class="flex items-center gap-3"><i data-lucide="map-pin" class="w-4 h-4 shrink-0 text-brand-light"></i> Av. dos Imigrantes, 1500</li>
+                        <li class="flex items-center gap-3"><i data-lucide="phone" class="w-4 h-4 shrink-0 text-brand-light"></i> (11) 4033-4521</li>
+                        <li class="flex items-center gap-3"><i data-lucide="mail" class="w-4 h-4 shrink-0 text-brand-light"></i> contato@petamigo.com.br</li>
+                        <li class="flex items-center gap-3"><i data-lucide="clock" class="w-4 h-4 shrink-0 text-brand-light"></i> Seg–Sáb: 8h às 20h</li>
+                    </ul>
                 </div>
+            </div>
+            <div class="border-t border-white/10 pt-8 flex flex-col sm:flex-row items-center justify-between gap-4 text-sm">
+                <p class="text-center sm:text-left">© 2026 Pet Amigo. Todos os direitos reservados. Desenvolvido por <a href="#" class="text-white font-semibold hover:underline">Akamine Web Studio</a>.</p>
+                <p class="inline-flex items-center gap-2 text-cream/60"><i data-lucide="heart" class="w-4 h-4 text-brand-light anim-heart"></i> Feito com amor para pets</p>
             </div>
         </div>
     </footer>
 
-    <!-- WhatsApp Float Button -->
-    <a href="https://wa.me/5511987654321" target="_blank" 
-       class="fixed bottom-6 right-6 z-50 w-14 h-14 bg-green-500 rounded-full flex items-center justify-center shadow-lg hover:bg-green-600 transition-colors animate-float"
-       style="box-shadow: 0 4px 20px rgba(34, 197, 94, 0.4);">
-        <svg class="w-7 h-7 text-white" fill="currentColor" viewBox="0 0 24 24">
-            <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.008-.57-.008-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/>
-        </svg>
+    <!-- WhatsApp float -->
+    <a href="https://wa.me/5511987654321" target="_blank" rel="noopener" aria-label="Falar no WhatsApp"
+       class="btn fixed bottom-6 right-6 z-50 grid place-items-center w-14 h-14 rounded-full bg-[#25D366] text-white shadow-[0_10px_30px_-6px_rgba(37,211,102,0.6)] anim-float-sm">
+        <svg class="w-7 h-7" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.008-.57-.008-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
     </a>
 
-    <!-- Scripts -->
+    <!-- ============ SCRIPTS ============ -->
     <script>
-        // Initialize Lucide Icons
-        lucide.createIcons();
+        (function () {
+            'use strict';
+            const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
-        // Initialize AOS
-        AOS.init({
-            duration: 800,
-            once: true,
-            offset: 100,
-            easing: 'ease-out-cubic'
-        });
+            function init() {
+                if (window.lucide) lucide.createIcons();
 
-        // Navbar scroll effect
-        const navbar = document.getElementById('navbar');
-        window.addEventListener('scroll', () => {
-            if (window.scrollY > 50) {
-                navbar.classList.add('bg-white/95', 'backdrop-blur-md', 'shadow-lg');
-            } else {
-                navbar.classList.remove('bg-white/95', 'backdrop-blur-md', 'shadow-lg');
+                /* ---- Page loader ---- */
+                const loader = document.getElementById('loader');
+                window.addEventListener('load', () => loader.classList.add('done'));
+                setTimeout(() => loader.classList.add('done'), 1600); // safety fallback
+
+                /* ---- Image fade-in on load ---- */
+                document.querySelectorAll('img[data-fade]').forEach(img => {
+                    if (img.complete) { img.classList.add('loaded'); }
+                    else { img.addEventListener('load', () => img.classList.add('loaded'));
+                           img.addEventListener('error', () => img.classList.add('loaded')); }
+                });
+
+                /* ---- Stagger delays within groups ---- */
+                document.querySelectorAll('[data-stagger]').forEach(group => {
+                    group.querySelectorAll('.reveal').forEach((el, i) => {
+                        el.style.setProperty('--reveal-delay', (i % 8) * 90 + 'ms');
+                    });
+                });
+
+                /* ---- Reveal via Intersection Observer ---- */
+                const reveals = document.querySelectorAll('.reveal');
+                if (reduceMotion || !('IntersectionObserver' in window)) {
+                    reveals.forEach(el => el.classList.add('is-visible'));
+                } else {
+                    const io = new IntersectionObserver((entries, obs) => {
+                        entries.forEach(entry => {
+                            if (entry.isIntersecting) { entry.target.classList.add('is-visible'); obs.unobserve(entry.target); }
+                        });
+                    }, { threshold: 0.12, rootMargin: '0px 0px -8% 0px' });
+                    reveals.forEach(el => io.observe(el));
+                }
+
+                /* ---- Navbar shrink + glass on scroll ---- */
+                const navbar = document.getElementById('navbar');
+                const navInner = document.getElementById('nav-inner');
+                const onScroll = () => {
+                    const y = window.scrollY;
+                    if (y > 24) {
+                        navbar.classList.add('glass-strong', 'shadow-soft');
+                        navInner.classList.remove('h-20'); navInner.classList.add('h-16');
+                    } else {
+                        navbar.classList.remove('glass-strong', 'shadow-soft');
+                        navInner.classList.add('h-20'); navInner.classList.remove('h-16');
+                    }
+                };
+                onScroll();
+
+                /* ---- Active section highlight ---- */
+                const navLinks = [...document.querySelectorAll('#navbar .nav-link')];
+                const sections = navLinks.map(l => document.querySelector(l.getAttribute('href'))).filter(Boolean);
+                const spy = new IntersectionObserver((entries) => {
+                    entries.forEach(e => {
+                        if (e.isIntersecting) {
+                            const id = '#' + e.target.id;
+                            navLinks.forEach(l => l.setAttribute('aria-current', l.getAttribute('href') === id ? 'true' : 'false'));
+                        }
+                    });
+                }, { threshold: 0.4 });
+                sections.forEach(s => spy.observe(s));
+
+                /* ---- Parallax (rAF throttled) ---- */
+                const parallaxEls = [...document.querySelectorAll('[data-parallax]')];
+                let ticking = false;
+                function applyParallax() {
+                    const y = window.scrollY;
+                    parallaxEls.forEach(el => {
+                        const speed = parseFloat(el.dataset.parallax) || 0.1;
+                        el.style.transform = `translate3d(0, ${(-y * speed).toFixed(1)}px, 0)`;
+                    });
+                    ticking = false;
+                }
+                function requestTick() {
+                    onScroll();
+                    if (!reduceMotion && !ticking) { requestAnimationFrame(applyParallax); ticking = true; }
+                }
+                window.addEventListener('scroll', requestTick, { passive: true });
+
+                /* ---- Animated counters ---- */
+                const counters = document.querySelectorAll('[data-count]');
+                const animateCount = (el) => {
+                    const target = parseInt(el.dataset.count, 10);
+                    const suffix = el.dataset.suffix || '';
+                    if (reduceMotion) { el.textContent = target.toLocaleString('pt-BR') + suffix; return; }
+                    const dur = 1600; const start = performance.now();
+                    const step = (now) => {
+                        const p = Math.min((now - start) / dur, 1);
+                        const eased = 1 - Math.pow(1 - p, 3);
+                        el.textContent = Math.floor(eased * target).toLocaleString('pt-BR') + suffix;
+                        if (p < 1) requestAnimationFrame(step);
+                    };
+                    requestAnimationFrame(step);
+                };
+                const countIO = new IntersectionObserver((entries, obs) => {
+                    entries.forEach(e => { if (e.isIntersecting) { animateCount(e.target); obs.unobserve(e.target); } });
+                }, { threshold: 0.6 });
+                counters.forEach(c => countIO.observe(c));
+
+                /* ---- Mobile menu ---- */
+                const burger = document.getElementById('burger');
+                const menu = document.getElementById('mobile-menu');
+                const setMenu = (open) => {
+                    menu.dataset.open = String(open);
+                    burger.setAttribute('aria-expanded', String(open));
+                    burger.setAttribute('aria-label', open ? 'Fechar menu' : 'Abrir menu');
+                    document.body.style.overflow = open ? 'hidden' : '';
+                };
+                burger.addEventListener('click', () => setMenu(menu.dataset.open !== 'true'));
+                menu.querySelectorAll('a').forEach(a => a.addEventListener('click', () => setMenu(false)));
+                document.addEventListener('keydown', (e) => { if (e.key === 'Escape' && menu.dataset.open === 'true') setMenu(false); });
+
+                /* ---- Booking form ---- */
+                const form = document.getElementById('booking-form');
+                const status = document.getElementById('form-status');
+                form.addEventListener('submit', (e) => {
+                    e.preventDefault();
+                    if (!form.checkValidity()) { form.reportValidity(); return; }
+                    status.classList.remove('hidden');
+                    if (window.lucide) lucide.createIcons();
+                    form.reset();
+                    status.scrollIntoView({ behavior: reduceMotion ? 'auto' : 'smooth', block: 'center' });
+                    setTimeout(() => status.classList.add('hidden'), 6000);
+                });
+
+                /* ---- Set min date to today ---- */
+                const dateField = document.getElementById('f-data');
+                if (dateField) dateField.min = new Date().toISOString().split('T')[0];
             }
-        });
 
-        // Mobile menu
-        const mobileMenuBtn = document.getElementById('mobile-menu-btn');
-        const mobileMenu = document.getElementById('mobile-menu');
-        const mobileMenuClose = document.getElementById('mobile-menu-close');
-        const mobileLinks = document.querySelectorAll('.mobile-link');
-
-        mobileMenuBtn.addEventListener('click', () => {
-            mobileMenu.classList.add('open');
-        });
-
-        mobileMenuClose.addEventListener('click', () => {
-            mobileMenu.classList.remove('open');
-        });
-
-        mobileLinks.forEach(link => {
-            link.addEventListener('click', () => {
-                mobileMenu.classList.remove('open');
-            });
-        });
-
-        // Active nav link based on scroll
-        const sections = document.querySelectorAll('section[id]');
-        const navLinks = document.querySelectorAll('.nav-link');
-
-        window.addEventListener('scroll', () => {
-            let current = '';
-            sections.forEach(section => {
-                const sectionTop = section.offsetTop - 100;
-                if (scrollY >= sectionTop) {
-                    current = section.getAttribute('id');
-                }
-            });
-
-            navLinks.forEach(link => {
-                link.classList.remove('text-pet-orange');
-                if (link.getAttribute('href') === '#' + current) {
-                    link.classList.add('text-pet-orange');
-                }
-            });
-        });
-    </script></body>
+            if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', init);
+            else init();
+        })();
+    </script>
+</body>
 </html>
